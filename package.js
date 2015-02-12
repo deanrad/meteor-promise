@@ -1,8 +1,8 @@
 Package.describe({
   name: 'deanius:promise',
-  version: '1.0.0',
+  version: '1.0.1',
   summary: 'Meteor.promise: Get a JQuery Promise for the result of a Meteor.call',
-  git: 'http://github.com:chicagogrooves/deanius-meteor-promise.git',
+  git: 'https://github.com/chicagogrooves/deanius-meteor-promise',
   documentation: 'README.md'
 });
 
