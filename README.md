@@ -1,4 +1,4 @@
-# deanius:promise
+# deanius:promise [![Build Status](https://secure.travis-ci.org/chicagogrooves/deanius-meteor-promise.png?branch=master)](https://travis-ci.org/chicagogrooves/deanius-meteor-promise) 
 
 ## Overview
 Nesting callbacks stinks, so calling `Meteor.call` in succession is more painful than it needs to be. If only there were `Meteor.promise`, which returns a chainable object. This package does just that.
