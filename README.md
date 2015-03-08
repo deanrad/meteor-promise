@@ -1,9 +1,14 @@
-# deanius:promise [![Build Status](https://secure.travis-ci.org/chicagogrooves/deanius-meteor-promise.png?branch=master)](https://travis-ci.org/chicagogrooves/deanius-meteor-promise) 
+# deanius:promise [![Build Status](https://secure.travis-ci.org/chicagogrooves/deanius-meteor-promise.png?branch=master)](https://travis-ci.org/chicagogrooves/deanius-meteor-promise)
 
 ## Overview
 Nesting callbacks stinks, so calling `Meteor.call` in succession is more painful than it needs to be. If only there were `Meteor.promise`, which returns a chainable object. This package does just that.
 
-Currently, to include no additional dependencies, the promise object returned is of the JQuery variety, so read all about [JQuery Deferred](http://api.jquery.com/deferred.then/). Then go read about Promises/A+ (here, [LMGTFY](https://promisesaplus.com/)), a competing but highly similar standard. Then tell the world how nice it is to be callback-free.
+The first promise implementation found on this list will be used:
+  * [Q](https://github.com/kriskowal/q)
+  * [Jquery Deferred] (http://api.jquery.com/deferred.then/)
+
+For background on why to use promises, [Promises/A+](https://promisesaplus.com/))
+is a good place to learn how nice it is to be callback-free.
 
 ## How to use
 
