@@ -1,0 +1,23 @@
+{
+  "name": "deanius-meteor-promise",
+  "version": "1.0.2",
+  "description": "Get a Promise for the result of a Meteor.call",
+  "main": "deanius:promise.js",
+  "scripts": {
+    "test": "open http://localhost:3000; meteor test-packages ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chicagogrooves/deanius-meteor-promise.git"
+  },
+  "keywords": [
+    "meteor",
+    "promise"
+  ],
+  "author": "Dean Radcliffe",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chicagogrooves/deanius-meteor-promise/issues"
+  },
+  "homepage": "https://github.com/chicagogrooves/deanius-meteor-promise"
+}
