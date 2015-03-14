@@ -1,6 +1,6 @@
 Package.describe({
   name: 'deanius:promise',
-  version: '1.0.3',
+  version: '1.0.4',
   summary: 'Meteor.promise: Get a Promise for the result of a Meteor.call',
   git: 'https://github.com/chicagogrooves/deanius-meteor-promise',
   documentation: 'README.md'
@@ -8,7 +8,9 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.0.3.1');
-  api.use(['jquery', 'ddp'], ['client']);
+  api.use('jquery', 'client');
+  api.use('ddp', 'client');
+  api.use('frozeman:q', 'client', {weak: true});
   api.addFiles('deanius:promise.js', ['client']);
 });
 
