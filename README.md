@@ -3,11 +3,9 @@
 ## Overview
 Nesting callbacks stinks, so calling `Meteor.call` in succession is more painful than it needs to be. If only there were `Meteor.promise`, which returns a chainable object. This package does just that.
 
-The first promise implementation found on this list will be used:
-  * [Q](https://github.com/kriskowal/q)
-  * [Jquery Deferred] (http://api.jquery.com/deferred.then/)
+An ES6 compatible promise, as provided by [es6-promise](https://github.com/jakearchibald/es6-promise) is returned.
 
-For background on why to use promises, [Promises/A+](https://promisesaplus.com/))
+For background on why to use promises, [Promises/A+](https://promisesaplus.com/)
 is a good place to learn how nice it is to be callback-free.
 
 ## How to use
@@ -59,12 +57,12 @@ function createCustomerThing(customer){
 Meteor.promise("createCustomer")
    .then(createCustomerThing)
    .done(function(customer){ console.log("Good", customer); })
-   .fail(function(err){ console.error("Bad", err); })
+   .catch(function(err){ console.error("Bad", err); })
 
 // with an error, handled in one place
 Meteor.promise("createCustomer", -1)
    .then(createCustomerThing)
    .done(function(customer){ console.log("Good", customer); })
-   .fail(function(err){ console.error("Bad", err); })
+   .catch(function(err){ console.error("Bad", err); })
 
 ```
