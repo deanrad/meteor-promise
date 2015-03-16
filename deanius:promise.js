@@ -1,12 +1,11 @@
 // Provide a polyfill
-if (typeof Promise === "undefined") {
+if (typeof Promise !== "function") {
   Npm.require("es6-promise").polyfill();
 }
 
 /**
    * @memberOf Meteor
    * @summary Gets a ES6-compatible Promise for the result of a Meteor.call
-   *          Applies a Promises polyfill if needed.
    * @locus Client
    * @param {String} name Name of method to invoke
    * @param {EJSONable} [arg1,arg2...] Optional method arguments
