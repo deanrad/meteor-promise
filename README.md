@@ -40,7 +40,7 @@ Meteor.methods({
 
 You want to chain the two calls, but you'd like to avoid nesting callbacks, because [Promises](http://api.jquery.com/deferred.then/) are great tools, not used frequently enough.
 
-Instead of inflicting pyramids-of-doom upon yourself and others, create a promise for the result, using `Meteor.promise`, then chain them together using `then`. You need only a single `fail` error handler tacked on at the end, and the code of each step can be cleaner, safely omitting the obligtory check for the `err` argument to a callback.
+Instead of inflicting pyramids-of-doom upon yourself and others, create a promise for the result, using `Meteor.promise`, then chain them together using `then`. You need only a single `catch` error handler tacked on at the end, and the code of each step can be cleaner, safely omitting the obligtory check for the `err` argument to a callback.
 
 
 ```
