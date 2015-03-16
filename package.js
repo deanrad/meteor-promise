@@ -1,7 +1,7 @@
 Package.describe({
   name: 'deanius:promise',
   version: '2.0.0',
-  summary: 'Meteor.promise: Get a ES6-compatible Promise for the result of a Meteor.call. Applies an ES6 promise polyfill (es6-promise) if Promise global not detected.',
+  summary: 'Meteor.promise: Get a ES6-compatible Promise for the result of a `Meteor.call`',
   git: 'https://github.com/chicagogrooves/deanius-meteor-promise',
   documentation: 'README.md'
 });
