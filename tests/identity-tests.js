@@ -17,3 +17,15 @@ identityArgs.forEach(function(arg){
     })
   });
 })
+
+Tinytest.addAsync('Method call - identity - named function', function (test, done) {
+  var arg = {some: 'thing'};
+  var p = Meteor.promise("identity", arg);
+
+  function testFunc (val) {
+    test.equal(arg, val);
+    done();
+  }
+
+  p.then(testFunc);
+});
