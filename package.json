@@ -1,6 +1,6 @@
 {
   "name": "deanius-meteor-promise",
-  "version": "1.0.3",
+  "version": "2.0.3",
   "description": "Get a Promise for the result of a Meteor.call",
   "main": "deanius:promise.js",
   "scripts": {

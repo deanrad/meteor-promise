@@ -1,8 +1,8 @@
 Meteor.methods({
-  identity: function(val){
+  identity: function (val) {
     return val;
   },
-  MeteorError: function(){
+  MeteorError: function () {
     throw new Meteor.Error("forced", "this message will go to the client");
   }
 });

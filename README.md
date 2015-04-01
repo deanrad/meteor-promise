@@ -12,6 +12,9 @@ is a good place to learn how nice it is to be callback-free.
 
     meteor install deanius:promise
 
+On the server, you may want to wrap callbacks in `Meteor.bindEnvironment`.
+The Meteor Docs, and Chris Mather's Evented Mind videos explain more about that.
+
 ## Detailed Example
 
 Let's say you have two server-side methods, the first of which is made to create a customer (or throw an error),
