@@ -11,10 +11,10 @@ identityArgs.forEach(function(arg){
 
   Tinytest.addAsync('Method call - identity - ' + type, function (test, done) {
     var p = Meteor.promise("identity", arg);
-    p.then(function(val){
+    p.then(wrapOnServer(function(val){
       test.equal(arg, val);
       done();
-    })
+    }));
   });
 })
 
@@ -22,10 +22,10 @@ Tinytest.addAsync('Method call - identity - named function', function (test, don
   var arg = {some: 'thing'};
   var p = Meteor.promise("identity", arg);
 
-  function testFunc (val) {
+  var testFunc = wrapOnServer( function (val) {
     test.equal(arg, val);
     done();
-  }
+  } );
 
   p.then(testFunc);
 });

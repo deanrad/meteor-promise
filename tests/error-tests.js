@@ -4,11 +4,11 @@ Tinytest.addAsync('Method call - MeteorError - then', function (test, done) {
     //this branch wont be run
     test.equal(1,2);
     done();
-  }, function (e) {
+  }, wrapOnServer(function (e) {
     test.equal(e.error, "forced");
     test.equal(e.reason, "this message will go to the client");
     done();
-  });
+  }));
 });
 
 Tinytest.addAsync('Method call - MeteorError - catch', function (test, done) {
@@ -17,9 +17,9 @@ Tinytest.addAsync('Method call - MeteorError - catch', function (test, done) {
     //this branch wont be run
     test.equal(1,2);
     done();
-  }).catch(function (e) {
+  }).catch(wrapOnServer(function (e) {
     test.equal(e.error, "forced");
     test.equal(e.reason, "this message will go to the client");
     done();
-  });
+  }));
 });
