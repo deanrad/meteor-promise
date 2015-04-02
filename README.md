@@ -21,19 +21,21 @@ Let's say you have two server-side methods, the first of which is made to create
 the second of which is made to associate a thing with the customer, and which requires the customer id created in the first method.
 
 ```
+// On the server
 Meteor.methods({
-  createCustomer: function(input) {
-    if (input === -1) {
-      throw new Meteor.Error("Uh uh");
-    } else {
-      return {customer: {id: 1}};
-    }
-  },
-  createCustomerThing: function(custId, thing) {
+  createCustomer: function(email, card) {
+    if (!email || !card) throw new Meteor.Error("missing fields");
     return {
-      customer: {
-        id: custId,
-        thing: obj
+      id: 1,
+      email: email,
+      card: card
+    };
+  },
+  createCustomerSubscription: function(custId, plan) {
+    return {
+      plan: {
+        customerId: custId,
+        name: plan
       }
     };
   }
@@ -47,25 +49,22 @@ Instead of inflicting pyramids-of-doom upon yourself and others, create a promis
 
 
 ```
-function createCustomer(){
-  return Meteor.promise("createCustomer");
-}
-
-function createCustomerThing(customer){
-  var thing = {some: 'stuff'};
-  return Meteor.promise("createCustomerThing", customer.id, thing);
-}
-
-// without an error
-Meteor.promise("createCustomer")
-   .then(createCustomerThing)
-   .done(function(customer){ console.log("Good", customer); })
-   .catch(function(err){ console.error("Bad", err); })
-
-// with an error, handled in one place
-Meteor.promise("createCustomer", -1)
-   .then(createCustomerThing)
-   .done(function(customer){ console.log("Good", customer); })
-   .catch(function(err){ console.error("Bad", err); })
+var plan = "Plan9"; //first obtain this so later steps can use it
+Meteor.promise("createCustomer", "foo@bar.com", "VISA")
+  .then(function(customer) {
+    return Meteor.promise("createCustomerSubscription", customer.id, plan);
+  })
+  .then(function(plan) {
+    console.log("Plan", plan);
+  })
+  .catch(function (err) {
+    console.error(err);
+  })
 
 ```
+
+Note that each step in the promise chain must take a single argument, which will
+be the return value from the previous call.
+
+# Inspiration
+**The Meteor Chef**: http://themeteorchef.com/recipes/building-a-saas-with-meteor-stripe-part-1/
