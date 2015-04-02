@@ -1,14 +1,12 @@
 Meteor.methods({
-  identity: function (val) {
-    return val;
-  },
-  MeteorError: function () {
+  identity: val => val,
+  MeteorError: () => {
     throw new Meteor.Error("forced", "this message will go to the client");
   }
 });
 
 Meteor.methods({
-  createCustomer: function (email, card) {
+  createCustomer: (email, card) => {
     if (!email || !card) throw new Meteor.Error("missing fields");
     return {
       id: 1,
@@ -16,7 +14,7 @@ Meteor.methods({
       card: card
     };
   },
-  createCustomerSubscription: function (custId, plan) {
+  createCustomerSubscription: (custId, plan) => {
     return {
       plan: {
         customerId: custId,

@@ -5,27 +5,27 @@ var identityArgs = [
   {one: 1}
 ];
 
-identityArgs.forEach(function(arg){
+identityArgs.forEach((arg) => {
   var typeofVal = typeof arg,
       type = typeofVal === "object" ? arg.constructor.name : typeofVal;
 
-  Tinytest.addAsync('Method call - identity - ' + type, function (test, done) {
+  Tinytest.addAsync('Method call - identity - ' + type, (test, done) => {
     var p = Meteor.promise("identity", arg);
-    p.then(wrapOnServer(function(val){
+    p.then(wrapOnServer((val) => {
       test.equal(arg, val);
       done();
     }));
   });
 })
 
-Tinytest.addAsync('Method call - identity - named function', function (test, done) {
+Tinytest.addAsync('Method call - identity - named function', (test, done) =>{
   var arg = {some: 'thing'};
   var p = Meteor.promise("identity", arg);
 
-  var testFunc = wrapOnServer( function (val) {
+  var testFunc = wrapOnServer((val) => {
     test.equal(arg, val);
     done();
-  } );
+  });
 
   p.then(testFunc);
 });

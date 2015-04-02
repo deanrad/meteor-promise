@@ -19,10 +19,11 @@ Npm.depends({
 Package.onTest(function(api) {
   api.use('tinytest');
   api.use('deanius:promise');
-  api.addFiles('tests/server-methods.js', ['server']);
+  api.use('mquandalle:harmony');
   api.addFiles('deanius:promise.js', ['client', 'server']);
+  api.addFiles('tests/server-methods.next.js', ['server']);
   api.addFiles('tests/support.js', ['client', 'server']);
-  api.addFiles('tests/identity-tests.js', ['client', 'server']);
-  api.addFiles('tests/chaining-tests.js', ['client', 'server']);
-  api.addFiles('tests/error-tests.js', ['client', 'server']);
+  api.addFiles('tests/identity-tests.next.js', ['client', 'server']);
+  api.addFiles('tests/chaining-tests.next.js', ['client', 'server']);
+  api.addFiles('tests/error-tests.next.js', ['client', 'server']);
 });
