@@ -4,7 +4,8 @@
   "description": "Get a Promise for the result of a Meteor.call",
   "main": "deanius:promise.js",
   "scripts": {
-    "start": "meteor test-packages ./"
+    "start": "meteor test-packages ./",
+    "test": "node start_test.js"
   },
   "repository": {
     "type": "git",
