@@ -10,7 +10,7 @@ is a good place to learn how nice it is to be callback-free.
 
 ## How to use
 
-    meteor install deanius:promise
+    meteor add deanius:promise
 
 On the server, you may want to wrap callbacks in `Meteor.bindEnvironment`.
 The Meteor Docs, and Chris Mather's Evented Mind videos explain more about that.
