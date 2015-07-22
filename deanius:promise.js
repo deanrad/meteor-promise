@@ -32,3 +32,11 @@ Meteor.promise = function() {
 
   return promise;
 };
+
+/* TODO: patch Meteor.call to call Meteor.promise if last argument
+  is not a function
+
+  Meteor.call = () => {
+  
+  }
+*/

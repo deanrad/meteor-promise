@@ -26,4 +26,5 @@ Package.onTest(function(api) {
   api.addFiles('tests/identity-tests.next.js', ['client', 'server']);
   api.addFiles('tests/chaining-tests.next.js', ['client', 'server']);
   api.addFiles('tests/error-tests.next.js', ['client', 'server']);
+  api.addFiles('tests/call-wo-callback.next.js', ['client']);
 });
