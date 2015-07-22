@@ -1,6 +1,14 @@
+identityFn = (x) => x
+increment  = (x) => x+1
+
+wrapOnServer =  (f) => {
+  var wrapper = Meteor.isServer ? Meteor.bindEnvironment : identityFn;
+  return wrapper(f);
+}
+
 Meteor.methods({
-  identity: val => val,
-  MeteorError: () => {
+  identity: identityFn,
+  MeteorError() {
     throw new Meteor.Error("forced", "this message will go to the client");
   }
 });
