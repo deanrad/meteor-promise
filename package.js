@@ -1,7 +1,7 @@
 Package.describe({
   name: 'deanius:promise',
   version: '2.0.4',
-  summary: 'Meteor.promise: Get a ES6-compatible Promise for the result of a `Meteor.call`',
+  summary: 'Meteor.call: Get a ES6-compatible Promise for the result of a `Meteor.call`',
   git: 'https://github.com/deanius/deanius-meteor-promise',
   documentation: 'README.md'
 });

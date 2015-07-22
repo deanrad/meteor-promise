@@ -1,7 +1,8 @@
 # deanius:promise [![Build Status](https://secure.travis-ci.org/deanius/deanius-meteor-promise.png?branch=master)](https://travis-ci.org/deanius/deanius-meteor-promise)
 
 ## Overview
-Nesting callbacks stinks, so calling `Meteor.call` in succession is more painful than it needs to be. If only `Meteor.call`, would return a promise, if a callback is omitted. This package does just that.
+Nesting callbacks stinks, so calling `Meteor.call` in succession is more painful than it needs to be. If only `Meteor.call`, would return a promise, if a callback is omitted. This package does just that. It also provides `Meteor.promise`, which may go away in a future version, as I believe returning a promise when a callback is
+omitted should be the default behavior of all Meteor callback-accepting methods.
 
 An ES6 compatible promise, as provided by [es6-promise](https://github.com/jakearchibald/es6-promise) is returned.
 
