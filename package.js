@@ -13,7 +13,7 @@ Package.onUse(function(api) {
 });
 
 Npm.depends({
-  'es6-promise': '2.0.1'
+  'es6-promise': '2.3.0'
 })
 
 Package.onTest(function(api) {

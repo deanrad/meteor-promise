@@ -33,6 +33,29 @@ Meteor.promise = function() {
   return promise;
 };
 
+/**
+* @summary Takes a function expecting a final callback, and returns a function
+*   that allows for omission of the callback, returning a Promise
+* @locus Client
+* @param {Function} fn The function to promisify
+* @returns {Promise}
+*/
+Meteor.promisify = function (fn, context) {
+    return function (/*arguments, no cb*/) {
+      var args = Array.prototype.slice.call(arguments, 0);
+      return new Promise(function (resolve, reject) {
+        args.push(function (err, result) {
+          err ? reject(err) : resolve(result)
+        })
+        try {
+          fn.apply(context, args)
+        } catch (err) {
+          reject(err)
+        }
+      })
+    }
+};
+
 // patches packages/ddp-client/livedata_connection.js
 Meteor.call = function (name) {
   var args = Array.prototype.slice.call(arguments, 1);
