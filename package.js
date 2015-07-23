@@ -8,7 +8,7 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.0.3.1');
-  api.use('ddp', 'client');
+  api.use('ddp', 'client', 'http');
   api.addFiles('promise.js', ['client', 'server']);
 });
 
@@ -20,10 +20,12 @@ Package.onTest(function(api) {
   api.use('tinytest');
   api.use('deanius:promise');
   api.use('grigio:babel');
+  api.use('http');
   api.addFiles('promise.js', ['client', 'server']);
   api.addFiles('tests/support.es6.js', ['client', 'server']);
   api.addFiles('tests/identity-tests.es6.js', ['client', 'server']);
   api.addFiles('tests/chaining-tests.es6.js', ['client', 'server']);
   api.addFiles('tests/error-tests.es6.js', ['client', 'server']);
   api.addFiles('tests/call-wo-callback.es6.js', ['client']);
+  api.addFiles('tests/http-call-wo-callback.es6.js', ['client']);
 });
