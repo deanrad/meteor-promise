@@ -10,10 +10,9 @@ Tinytest.addAsync('Method call - with callback', (test, done) => {
 Tinytest.addAsync('Method call - without callback promise style', (test, done) => {
   var p = Meteor.call("createCustomer", "a@b.com", "123")
   test.equal(typeof p, "object")
-  // test.equal(p.constructor, Promise)
-  // p.then(cust => {
-  //   test.equal(cust.card, "124")
-  //   done()
-  // })
-  done()
+  test.equal(p.constructor, Promise)
+  p.then(cust => {
+    test.equal(cust.card, "123")
+    done()
+  })
 })
