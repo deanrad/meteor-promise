@@ -1,5 +1,8 @@
 # deanius:promise [![Build Status](https://secure.travis-ci.org/deanius/deanius-meteor-promise.png?branch=master)](https://travis-ci.org/deanius/deanius-meteor-promise)
 
+# Demo
+The demo-enabled README is at http://deanius-promise.meteor.com/
+
 # What is a Promise ?
 
 > A Promise is an object type which serves as a placeholder for a future result, such as the body of an HTTP request, or the return value of a Meteor method call. Basically any function that forces you to pass a callback to receive its return value (instead of just returning it) is said to be an async function, and the value it gives back can be represented by a Promise.
@@ -19,9 +22,6 @@ which you may have to wait for due to:
 If Meteor callback-accepting code were converted to Promises, you
 could use helpers and Reactivity to work with values that will be
 *eventually* available, in addition to values that are immediately available.
-
-# Demo
-The demo enabled README is at http://deanius-promise.meteor.com/
 
 ## Show me the code!
 
