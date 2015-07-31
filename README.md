@@ -1,74 +1,141 @@
 # deanius:promise [![Build Status](https://secure.travis-ci.org/deanius/deanius-meteor-promise.png?branch=master)](https://travis-ci.org/deanius/deanius-meteor-promise)
 
-## Overview
-Nesting callbacks stinks, so calling `Meteor.call` in succession is more painful than it needs to be. If only `Meteor.call`, would return a promise, if a callback is omitted. This package does just that. It also provides `Meteor.promise`, which may go away in a future version, as I believe returning a promise when a callback is
-omitted should be the default behavior of all Meteor callback-accepting methods.
+# What is a Promise ?
 
-An ES6 compatible promise, as provided by [es6-promise](https://github.com/jakearchibald/es6-promise) is returned.
+> A Promise is an object type which serves as a placeholder for a future result, such as the body of an HTTP request, or the return value of a Meteor method call. Basically any function that forces you to pass a callback to receive its return value (instead of just returning it) is said to be an async function, and the value it gives back can be represented by a Promise.
 
-For background on why to use promises, [Promises/A+](https://promisesaplus.com/)
-is a good place to learn how nice it is to be callback-free.
+# How can using them enhance my Meteor development ?
 
-## How to use
+Well, not only can they enhance your Meteor development, they are now
+forever a part of JavaScript - in the standard called ES6 or ES 2015.
 
-    meteor add deanius:promise
+Basically they allow you to pass around placholders for values
+which you may have to wait for due to:
 
-On the server, you may want to wrap promise `.then` callbacks in `Meteor.bindEnvironment`,
-but this package has limited utility in a server environment where you already can rely
-on fibers.
+  * waiting on the network, like for a `Meteor.call`
+  * waiting on a user interaction
+  * waiting on a page load event
 
-## Detailed Example
+If Meteor callback-accepting code were converted to Promises, you
+could use helpers and Reactivity to work with values that will be
+*eventually* available, in addition to values that are immediately available.
 
-Let's say you have two server-side methods, the first of which is made to create a customer (or throw an error),
-the second of which is made to associate a thing with the customer, and which requires the customer id created in the first method.
+# Demo
+The demo enabled README is at http://deanius-promise.meteor.com/
 
-```
-// On the server
+## Show me the code!
+
+It's easy as 1, 2, 3.
+
+1) We declare the method, and the UI for the fields.
+
+```js
 Meteor.methods({
-  createCustomer: function(email, card) {
-    if (!email || !card) throw new Meteor.Error("missing fields");
-    return {
-      id: 1,
-      email: email,
-      card: card
-    };
-  },
-  createCustomerSubscription: function(custId, plan) {
-    return {
-      plan: {
-        customerId: custId,
-        name: plan
-      }
-    };
+  add: function (x, y) {
+    return x + ", " + y;
+  }
+})
+```
+```html
+<template name="ui">
+  <input id="arg1" class="dynamic" value="foo"/>
+  <input id="arg2" class="dynamic" value="foo"/>
+</template>
+```
+
+2) Next we ensure that two reactive variables,
+`arg1` and `arg2` get updated whenever a `keyup` event is detected in
+either input field. One way to do this is:
+
+```js
+Template.ui.onCreated(function (){
+  this.arg1 = new ReactiveVar("foo");
+  this.arg2 = new ReactiveVar("bar");
+});
+Template.ui.events({
+  "keyup .dynamic": function (event, template) {
+    var whichVar = event.target.id;
+    var inputValue = template.$("#"+whichVar).val();
+    template[whichVar].set(inputValue);
   }
 });
-
 ```
 
-You want to chain the two calls, but you'd like to avoid nesting callbacks, because [Promises](http://api.jquery.com/deferred.then/) are great tools, not used frequently enough.
+3) Now, we define the helper to populate the `<textarea>`. It's as simple
+as this, and our field will keep up to date with the server's response!
 
-Instead of inflicting pyramids-of-doom upon yourself and others, create a promise for the result, using `Meteor.call` (or more explicitly `Meteor.promise`), then chain them together using `then`. You need only a single `catch` error handler tacked on at the end, and the code of each step can be cleaner, safely omitting the obligtory check for the `err` argument to a callback.
-
-
-```
-var plan = "Plan9"; //first obtain this so later steps can use it
-Meteor.call("createCustomer", "foo@bar.com", "VISA")
-  .then(function(customer) {
-    return Meteor.call("createCustomerSubscription", customer.id, plan);
+```js
+Template.ui.helpers({
+  "concatenatedArgs": PromiseHelper(function () {
+    var template = Template.instance();
+    var promise =  Meteor.call("add", template.arg1.get(), template.arg2.get());
+    return promise;
   })
-  .then(function(plan) {
-    console.log("Plan", plan);
-  })
-  .catch(function (err) {
-    console.error(err);
-  })
-
+});
 ```
 
-Note that each step in the promise chain must take a single argument, which will
-be the return value from the previous call. A promise, from `Meteor.call` or any
-other source, may be returned to continue the chain. Exception handling can be
-consolidated at the end of the promise chain.
+# How In The???
+So let me explain some of the *magic* going on here.
 
-# Inspiration
-**The Meteor Chef**: http://themeteorchef.com/recipes/building-a-saas-with-meteor-stripe-part-1/
+First, the version of `Meteor.call` being used is an enhanced one provided by `deanius:promise`. It allows you to omit the final callback parameter,
+and instead provides a Promise for the result. Promises are effectively
+the same as callbacks, but instead of handling the response in one method like this:
+
+```js
+function (err, result){
+  if (err) { console.error(err); return; }
+  console.log(result);
+}
+```
+
+Promises return an object onto which you can attach `then` and `catch` handlers.
+```js
+promise
+   .then(function(result){ console.log(result)})
+   .catch(function(err){ console.error(err))}))
+```
+
+Promises are better than callbacks for many reasons, not the least of
+which is that you can separate error-handling code from happy-path code.
+A full explanation of Promises is out of scope here, but since they are
+part of the new ES6 JavaScript standard, it would be great if you learn
+how to use them.
+
+Now, the secret sauce. By wrapping our helper function in `PromiseHelper`, it allows us to return a Promise. When that Promise is *resolved*-in other words, when its result has come in- the helper will update.
+
+*And that's all there is to it!*
+
+In order for you to see that there is some delay between creating the
+Promise, and its resolution, the Meteor.method includes a call to `Meteor.sleep`, from the `froatsnook:sleep` package. This is a good idea to have in place during development so you can see something of what
+your users will experience when they use your app.
+
+# Going farther
+
+Promises are chainable, so if we need to do some post-processing on the
+server result, no problem! Each time we tack a `then` onto an existing
+Promise, a new Promise is created for the combined result of all previous
+promises, much like chaining with JQuery. So we can do this:
+
+```js
+concatenatedArgs: PromiseHelper(function () {
+  var template = Template.instance();
+  var promise = Meteor.call("add", template.arg1.get(), template.arg2.get());
+  return promise.then(function(result){
+    return "Server says: " + result;
+  }).then(function(result){
+    return result + " :)"
+  })
+})
+```
+
+# A New Hope ?
+This PromiseHelper function is completely safe to wrap regular (non-promise
+returning) helpers with. So if every method passed to `Template.name.helpers` were automatically wrapped in it, you'd
+find that you could return Promises at will from a function. This would raise the level of abstraction to say that helpers can be sync, or async - either type of code would work.
+
+Promises can be used anywhere callback-accepting code is, so `HTTP.call`
+and friends could all be modified to return a Promise if the final callback parameter is omitted. This would increase the ease with which
+we could combine Reactive funtionality across different types of use cases.
+
+Thoughts? Questions? Open an issue in [this repo](https://github.com/deanius/meteor-async-call-example), and let's discuss. Or find me on social media. Thanks for watching!
+{{/template}}
