@@ -144,3 +144,6 @@ and friends could all be modified to return a Promise if the final callback para
 we could combine Reactive funtionality across different types of use cases.
 
 Thoughts? Questions? Open an issue in [`deanius:promise`](https://github.com/deanius/meteor-promise), and let's discuss. Or find me on social media. Thanks for watching!
+
+<!-- evil tracking beacon below -->
+<img height="0" width="0" src="http://bit.ly/meteor-promise">
