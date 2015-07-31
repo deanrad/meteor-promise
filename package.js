@@ -1,6 +1,6 @@
 Package.describe({
   name: 'deanius:promise',
-  version: '2.1.0',
+  version: '2.2.0',
   summary: 'Get a Promise for the result of a Meteor.call. Safely return Promises from helpers.',
   git: 'https://github.com/deanius/meteor-promise',
   documentation: 'README.md'
