@@ -103,6 +103,12 @@ how to use them.
 
 Now, the secret sauce. By wrapping our helper function in `PromiseHelper`, it allows us to return a Promise. When that Promise is *resolved*-in other words, when its result has come in- the helper will update.
 
+```js
+Template.ui.helpers({
+  "concatenatedArgs": PromiseHelper(function(){ /* something */})
+});
+```
+
 *And that's all there is to it!*
 
 In order for you to see that there is some delay between creating the
