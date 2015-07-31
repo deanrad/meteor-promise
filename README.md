@@ -137,5 +137,4 @@ Promises can be used anywhere callback-accepting code is, so `HTTP.call`
 and friends could all be modified to return a Promise if the final callback parameter is omitted. This would increase the ease with which
 we could combine Reactive funtionality across different types of use cases.
 
-Thoughts? Questions? Open an issue in [this repo](https://github.com/deanius/meteor-async-call-example), and let's discuss. Or find me on social media. Thanks for watching!
-{{/template}}
+Thoughts? Questions? Open an issue in [`deanius:promise`](https://github.com/deanius/meteor-promise), and let's discuss. Or find me on social media. Thanks for watching!
