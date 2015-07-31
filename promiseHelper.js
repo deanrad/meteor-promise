@@ -1,7 +1,8 @@
 var slice = [].slice;
 
-PromiseHelper = function (fn) {
-  var returnValues={}, preResolveDeps={};
+PromiseHelper = function (fn, loadingText) {
+  var loadingText = loadingText || "",
+      returnValues = {};
   return function(/* ...args, spacebars */) {
     var args, argHash, helperComputation, promise, reactiveValue, result;
     var i;
@@ -44,8 +45,8 @@ PromiseHelper = function (fn) {
         helperComputation.invalidate();
         return v;
       });
-      //optional: suppress display of [object Promise] message
-      returnValues[argHash] = "waiting..."
+      //suppress display of [object Promise] message
+      returnValues[argHash] = loadingText;
     }
     return returnValues[argHash];
   };
