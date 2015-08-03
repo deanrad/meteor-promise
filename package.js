@@ -1,7 +1,7 @@
 Package.describe({
   name: 'deanius:promise',
   version: '2.3.0',
-  summary: 'Get a Promise for the result of a Meteor method. Create reactive functions based on the results of Promises.',
+  summary: 'Get a Promise for a Meteor method call. Create async reactive functions using Promises.',
   git: 'https://github.com/deanius/meteor-promise',
   documentation: 'README.md'
 });
