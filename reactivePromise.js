@@ -21,7 +21,6 @@ ReactivePromise = function (fn, loadingText, errorTextOrFn) {
     var args, argHash, helperComputation, promise, reactiveValue, result;
     var i;
     args = 2 <= arguments.length ? slice.call(arguments, 0, i = arguments.length - 1) : (i = 0, []);
-    console.log("helper run for ", args);
     result = null;
     argHash = EJSON.stringify(args, {
       canonical: true
@@ -34,7 +33,6 @@ ReactivePromise = function (fn, loadingText, errorTextOrFn) {
     }
 
     reactiveValue = Tracker.autorun(function () {
-      console.log("evaluating helper " + argHash);
       delete returnValues[argHash];
       result = fn.apply({}, args);
       returnValues[argHash] = result;
@@ -49,12 +47,10 @@ ReactivePromise = function (fn, loadingText, errorTextOrFn) {
     if (returnValues[argHash] instanceof Promise) {
       promise = result;
       promise.then(function (v) {
-        console.log("Promise resolved", argHash, v);
         returnValues[argHash] = v;
         refire(helperComputation);
         return v;
       }, function (e) {
-        console.log("caught error");
         returnValues[argHash] = displayError(e);
         refire(helperComputation);
       });
