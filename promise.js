@@ -32,14 +32,3 @@ Meteor.promise = function() {
 
   return promise;
 };
-
-// patches packages/ddp-client/livedata_connection.js
-Meteor.call = function (name) {
-  var args = Array.prototype.slice.call(arguments, 1);
-  var argsWithName = Array.prototype.slice.call(arguments, 0);
-  if (args.length && typeof args[args.length - 1] === "function"){
-    var callback = args.pop();
-    return Meteor.apply(name, args, callback);
-  }
-  return Meteor.promise.apply(Meteor, argsWithName);
-}
