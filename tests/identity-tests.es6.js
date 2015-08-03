@@ -9,8 +9,8 @@ identityArgs.forEach((arg) => {
   var typeofVal = typeof arg,
       type = typeofVal === "object" ? arg.constructor.name : typeofVal;
 
-  Tinytest.addAsync('Method call - identity - ' + type, (test, done) => {
-    var p = Meteor.call("identity", arg);
+  Tinytest.addAsync('Meteor.promise - identity - ' + type, (test, done) => {
+    var p = Meteor.promise("identity", arg);
     p.then(wrapOnServer((val) => {
       test.equal(arg, val);
       done();
@@ -18,9 +18,9 @@ identityArgs.forEach((arg) => {
   });
 })
 
-Tinytest.addAsync('Method call - identity - named function', (test, done) =>{
+Tinytest.addAsync('Meteor.promise - identity - named function', (test, done) =>{
   var arg = {some: 'thing'};
-  var p = Meteor.call("identity", arg);
+  var p = Meteor.promise("identity", arg);
 
   var testFunc = wrapOnServer((val) => {
     test.equal(arg, val);

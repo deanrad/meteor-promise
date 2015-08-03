@@ -5,7 +5,7 @@ The demo-enabled README is at http://deanius-promise.meteor.com/
 
 # What is a Promise ?
 
-> A Promise is an object type which serves as a placeholder for a future result, such as the body of an HTTP request, or the return value of a Meteor method call. Basically any function that forces you to pass a callback to receive its return value (instead of just returning it) is said to be an async function, and the value it gives back can be represented by a Promise.
+> A Promise is an object type which serves as a placeholder for a future result, such as the body of an HTTP request, or the return value of a Meteor.promise. Basically any function that forces you to pass a callback to receive its return value (instead of just returning it) is said to be an async function, and the value it gives back can be represented by a Promise.
 
 # How can using them enhance my Meteor development ?
 
@@ -77,7 +77,7 @@ Template.ui.helpers({
 # How In The???
 So let me explain some of the *magic* going on here.
 
-First, the version of `Meteor.promise` being used is an enhanced one provided by `deanius:promise`. It allows you to omit the final callback parameter you'd have passed to `Meteor.call`, and instead provides a Promise for the result. Promises are effectively the same as callbacks, but instead of handling the response in one method like this:
+First, the version of `Meteor.promise` being used is an enhanced one provided by `deanius:promise`. It allows you to omit the final callback parameter you'd have passed to `Meteor.promise`, and instead provides a Promise for the result. Promises are effectively the same as callbacks, but instead of handling the response in one method like this:
 
 ```js
 function (err, result){

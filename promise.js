@@ -5,7 +5,7 @@ if (typeof Promise !== "function") {
 
 /**
    * @memberOf Meteor
-   * @summary Gets a ES6-compatible Promise for the result of a Meteor.call
+   * @summary Gets a ES6-compatible Promise for the result of a Meteor.promise
    * @locus Client
    * @param {String} name Name of method to invoke
    * @param {EJSONable} [arg1,arg2...] Optional method arguments

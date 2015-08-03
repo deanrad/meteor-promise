@@ -1,4 +1,4 @@
-Tinytest.addAsync('Method call - MeteorError - then', (test, done) => {
+Tinytest.addAsync('Meteor.promise - MeteorError - then', (test, done) => {
   var p = Meteor.promise("MeteorError");
   p.then((val) => {
     //this branch wont be run
@@ -11,7 +11,7 @@ Tinytest.addAsync('Method call - MeteorError - then', (test, done) => {
   }));
 });
 
-Tinytest.addAsync('Method call - MeteorError - catch', (test, done) => {
+Tinytest.addAsync('Meteor.promise - MeteorError - catch', (test, done) => {
   var p = Meteor.promise("MeteorError");
   p.then((val) => {
     //this branch wont be run

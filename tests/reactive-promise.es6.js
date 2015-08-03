@@ -102,4 +102,5 @@ Tinytest.addAsync('ReactivePromise - Basics - can wrap a synchronous function wi
 
 Tinytest.addAsync('ReactivePromise - Reactivity - responds to dep changes', (test, done) => {
   //TODO finish these
+  done();
 })
