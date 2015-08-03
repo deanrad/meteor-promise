@@ -1,7 +1,10 @@
 var slice = [].slice;
 
-PromiseHelper = function (fn, loadingText) {
+ReactivePromise = function (fn, loadingText, errorTextOrFn) {
   var loadingText = loadingText || "",
+      displayError = function (e) {
+        return _.isFunction(errorTextOrFn) ? errorTextOrFn(e) : (errorTextOrFn || "");
+      },
       returnValues = {};
   return function(/* ...args, spacebars */) {
     var args, argHash, helperComputation, promise, reactiveValue, result;
@@ -44,6 +47,13 @@ PromiseHelper = function (fn, loadingText) {
         helperComputation._onInvalidateCallbacks = [];
         helperComputation.invalidate();
         return v;
+      }, function (e) {
+        console.log("caught error");
+        returnValues[argHash] = displayError(e);
+        helperComputation.isPromiseResolve = true;
+        helperComputation.depsNotDeleted = helperComputation._onInvalidateCallbacks;
+        helperComputation._onInvalidateCallbacks = [];
+        helperComputation.invalidate();
       });
       //suppress display of [object Promise] message
       returnValues[argHash] = loadingText;
