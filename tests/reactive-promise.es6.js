@@ -18,7 +18,7 @@ Tinytest.addAsync('ReactivePromise - Basics - returns a wrapped function', (test
   done()
 })
 
-Tinytest.addAsync('ReactivePromise - Basics - return function must be run in an autorun', (test, done) => {
+Tinytest.addAsync('ReactivePromise - Basics - wrapped function must be run in an autorun', (test, done) => {
   let caught = 0, err = null
       wrappedFn = ReactivePromise(syncFn, loadingMsg)
   try {
@@ -33,7 +33,7 @@ Tinytest.addAsync('ReactivePromise - Basics - return function must be run in an 
 
 Tinytest.addAsync('ReactivePromise - Basics - returns loading text when promise is not resolved', (test, done) => {
   let returnVal = null,
-      wrappedFn = ReactivePromise(delayedFn(200), loadingMsg)
+      wrappedFn = ReactivePromise(delayedFn(100), loadingMsg)
 
   Tracker.autorun(() => {
     returnVal = wrappedFn()
@@ -44,7 +44,7 @@ Tinytest.addAsync('ReactivePromise - Basics - returns loading text when promise 
 
 Tinytest.addAsync('ReactivePromise - Basics - returns value once resolved', (test, done) => {
   let returnVal = null,
-      wrappedFn = ReactivePromise(delayedFn(200), loadingMsg, errMsg)
+      wrappedFn = ReactivePromise(delayedFn(100), loadingMsg, errMsg)
 
   Tracker.autorun(() => {
     returnVal = wrappedFn()
@@ -54,7 +54,7 @@ Tinytest.addAsync('ReactivePromise - Basics - returns value once resolved', (tes
   setTimeout(()=>{
     test.equal(returnVal, defaultReturnVal)
     done()
-  }, 250)
+  }, 150)
 
 })
 
@@ -73,7 +73,7 @@ Tinytest.addAsync('ReactivePromise - Basics - returns errMsg if rejected', (test
 
 Tinytest.addAsync('ReactivePromise - Basics - invokes errFn upon rejection', (test, done) => {
   let returnVal = null,
-      wrappedFn = ReactivePromise(rejectingFn, loadingMsg, (e)=>console.log(e) || `the error is ${e}`)
+      wrappedFn = ReactivePromise(rejectingFn, loadingMsg, (e)=>`the error is ${e}`)
   Tracker.autorun(() => {
     returnVal = wrappedFn()
   })
@@ -82,4 +82,24 @@ Tinytest.addAsync('ReactivePromise - Basics - invokes errFn upon rejection', (te
     test.equal(returnVal, defaultErrorDisplay)
     done()
   }, 100)
+})
+
+Tinytest.addAsync('ReactivePromise - Basics - can wrap a synchronous function without reinvoking', (test, done) => {
+  let returnVal = null,
+      wrappedFn = ReactivePromise(syncFn),
+      timesRun = 0;
+
+  Tracker.autorun(() => {
+    timesRun += 1
+    returnVal = wrappedFn()
+  })
+  test.equal(timesRun, 1) // normal for Tracker.autorun
+  setTimeout(()=>{
+    test.equal(timesRun, 1) // no additional runs
+    done()
+  }, 50)
+})
+
+Tinytest.addAsync('ReactivePromise - Reactivity - responds to dep changes', (test, done) => {
+  //TODO finish these
 })

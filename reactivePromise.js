@@ -5,6 +5,17 @@ ReactivePromise = function (fn, loadingText, errorTextOrFn) {
       displayError = function (e) {
         return _.isFunction(errorTextOrFn) ? errorTextOrFn(e) : (errorTextOrFn || "");
       },
+      refire = function refire (computation) {
+        computation.isPromiseResolve = true;
+        computation.depsNotDeleted = computation._onInvalidateCallbacks;
+        computation._onInvalidateCallbacks = [];
+        computation.invalidate();
+      },
+      cleanup = function cleanup (computation) {
+        computation._onInvalidateCallbacks = computation.depsNotDeleted;
+        delete computation.depsNotDeleted;
+        delete computation.isPromiseResolve;
+      },
       returnValues = {};
   return function(/* ...args, spacebars */) {
     var args, argHash, helperComputation, promise, reactiveValue, result;
@@ -18,9 +29,7 @@ ReactivePromise = function (fn, loadingText, errorTextOrFn) {
 
     helperComputation = Tracker.currentComputation;
     if (helperComputation.isPromiseResolve) {
-      helperComputation._onInvalidateCallbacks = helperComputation.depsNotDeleted;
-      delete helperComputation.depsNotDeleted;
-      delete helperComputation.isPromiseResolve;
+      cleanup(helperComputation);
       return returnValues[argHash];
     }
 
@@ -42,18 +51,12 @@ ReactivePromise = function (fn, loadingText, errorTextOrFn) {
       promise.then(function (v) {
         console.log("Promise resolved", argHash, v);
         returnValues[argHash] = v;
-        helperComputation.isPromiseResolve = true;
-        helperComputation.depsNotDeleted = helperComputation._onInvalidateCallbacks;
-        helperComputation._onInvalidateCallbacks = [];
-        helperComputation.invalidate();
+        refire(helperComputation);
         return v;
       }, function (e) {
         console.log("caught error");
         returnValues[argHash] = displayError(e);
-        helperComputation.isPromiseResolve = true;
-        helperComputation.depsNotDeleted = helperComputation._onInvalidateCallbacks;
-        helperComputation._onInvalidateCallbacks = [];
-        helperComputation.invalidate();
+        refire(helperComputation);
       });
       //suppress display of [object Promise] message
       returnValues[argHash] = loadingText;

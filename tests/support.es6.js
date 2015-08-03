@@ -29,5 +29,8 @@ Meteor.methods({
         name: plan
       }
     };
+  },
+  concat: (a, b) => {
+    return `${a} + ${b}`
   }
 });
