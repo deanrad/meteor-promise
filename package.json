@@ -1,7 +1,7 @@
 {
   "name": "deanius-meteor-promise",
   "version": "2.3.0",
-  "description": "Get a Promise for the result of a Meteor.call. Safely return Promises from helpers.",
+  "description": "Get a Promise for the result of a Meteor method. Create reactive functions based on the results of Promises.",
   "main": "promise.js",
   "scripts": {
     "start": "meteor test-packages ./",
