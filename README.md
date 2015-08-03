@@ -15,7 +15,7 @@ forever a part of JavaScript - in the standard called ES6 or ES 2015.
 Basically they allow you to pass around placholders for values
 which you may have to wait for due to:
 
-  * waiting on the network, like for a `Meteor.call`
+  * waiting on the network, like for a `Meteor.promise`
   * waiting on a user interaction
   * waiting on a page load event
 
@@ -66,9 +66,9 @@ as this, and our field will keep up to date with the server's response!
 
 ```js
 Template.ui.helpers({
-  "concatenatedArgs": PromiseHelper(function () {
+  "concatenatedArgs": ReactivePromise(function () {
     var template = Template.instance();
-    var promise =  Meteor.call("add", template.arg1.get(), template.arg2.get());
+    var promise =  Meteor.promise("add", template.arg1.get(), template.arg2.get());
     return promise;
   })
 });
@@ -77,9 +77,7 @@ Template.ui.helpers({
 # How In The???
 So let me explain some of the *magic* going on here.
 
-First, the version of `Meteor.call` being used is an enhanced one provided by `deanius:promise`. It allows you to omit the final callback parameter,
-and instead provides a Promise for the result. Promises are effectively
-the same as callbacks, but instead of handling the response in one method like this:
+First, the version of `Meteor.promise` being used is an enhanced one provided by `deanius:promise`. It allows you to omit the final callback parameter you'd have passed to `Meteor.call`, and instead provides a Promise for the result. Promises are effectively the same as callbacks, but instead of handling the response in one method like this:
 
 ```js
 function (err, result){
@@ -90,7 +88,7 @@ function (err, result){
 
 Promises return an object onto which you can attach `then` and `catch` handlers.
 ```js
-promise
+Meteor.promise('someMethod')
    .then(function(result){ console.log(result)})
    .catch(function(err){ console.error(err))}))
 ```
@@ -101,31 +99,26 @@ A full explanation of Promises is out of scope here, but since they are
 part of the new ES6 JavaScript standard, it would be great if you learn
 how to use them.
 
-Now, the secret sauce. By wrapping our helper function in `PromiseHelper`, it allows us to return a Promise. When that Promise is *resolved*-in other words, when its result has come in- the helper will update.
+Now, the secret sauce. By wrapping our helper function in `ReactivePromise`, it allows us to return a Promise. When that Promise is *resolved*-in other words, when its result has come in- the helper will update.
 
 ```js
 Template.ui.helpers({
-  "concatenatedArgs": PromiseHelper(function(){ /* something */})
+  "concatenatedArgs": ReactivePromise(function(){ /* something */})
 });
 ```
 
 *And that's all there is to it!*
 
-In order for you to see that there is some delay between creating the
-Promise, and its resolution, the Meteor.method includes a call to `Meteor.sleep`, from the `froatsnook:sleep` package. This is a good idea to have in place during development so you can see something of what
-your users will experience when they use your app.
+In order for you to see that there is some delay between creating the Promise, and its resolution, the Meteor.method includes a call to `Meteor.sleep`, from the `froatsnook:sleep` package. This is a good idea to have in place during development so you can see something of what your users will experience when they use your app.
 
 # Going farther
 
-Promises are chainable, so if we need to do some post-processing on the
-server result, no problem! Each time we tack a `then` onto an existing
-Promise, a new Promise is created for the combined result of all previous
-promises, much like chaining with JQuery. So we can do this:
+Promises are chainable, so if we need to do some post-processing on the server result, no problem! Each time we tack a `then` onto an existing Promise, a new Promise is created for the combined result of all previous promises, much like chaining with JQuery. So we can do this:
 
 ```js
-concatenatedArgs: PromiseHelper(function () {
+concatenatedArgs: ReactivePromise(function () {
   var template = Template.instance();
-  var promise = Meteor.call("add", template.arg1.get(), template.arg2.get());
+  var promise = Meteor.promise("add", template.arg1.get(), template.arg2.get());
   return promise.then(function(result){
     return "Server says: " + result;
   }).then(function(result){
@@ -135,15 +128,8 @@ concatenatedArgs: PromiseHelper(function () {
 ```
 
 # A New Hope ?
-This PromiseHelper function is completely safe to wrap regular (non-promise
-returning) helpers with. So if every method passed to `Template.name.helpers` were automatically wrapped in it, you'd
-find that you could return Promises at will from a function. This would raise the level of abstraction to say that helpers can be sync, or async - either type of code would work.
+ReactivePromise is completely safe to wrap regular (synchronous, non-promise returning) helpers with. So if every method passed to `Template.name.helpers` were automatically wrapped in it, you'd find that you could return Promises at will from a function. This would raise the level of abstraction to say that helpers can be sync, or async - either type of code would work.
 
-Promises can be used anywhere callback-accepting code is, so `HTTP.call`
-and friends could all be modified to return a Promise if the final callback parameter is omitted. This would increase the ease with which
-we could combine Reactive funtionality across different types of use cases.
+Promises can be used anywhere callback-accepting code is, so `HTTP.call` and friends could all be modified to return a Promise if the final callback parameter is omitted. This would increase the ease with which we could combine Reactive functionality across different types of use cases.
 
-Thoughts? Questions? Open an issue in [`deanius:promise`](https://github.com/deanius/meteor-promise), and let's discuss. Or find me on social media. Thanks for watching!
-
-<!-- evil tracking beacon below -->
-<img height="0" width="0" src="http://bit.ly/meteor-promise">
+Thoughts? Questions? Open an issue in [`deanius:promise`](https://github.com/deanius/meteor-promise), and let's discuss. Or find me on social media. Thanks for your interest!
