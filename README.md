@@ -1,7 +1,7 @@
-# deanius:promise [![Build Status](https://secure.travis-ci.org/deanius/deanius-meteor-promise.png?branch=master)](https://travis-ci.org/deanius/deanius-meteor-promise)
+# okgrow:promise [![Build Status](https://secure.travis-ci.org/okgrow/okgrow-meteor-promise.png?branch=master)](https://travis-ci.org/okgrow/okgrow-meteor-promise)
 
 # Demo
-The demo-enabled README is at http://deanius-promise.meteor.com/
+The demo-enabled README is at http://okgrow-promise.meteor.com/
 
 # What is a Promise ?
 
@@ -77,7 +77,7 @@ Template.ui.helpers({
 # How In The???
 So let me explain some of the *magic* going on here.
 
-First, the version of `Meteor.promise` being used is an enhanced one provided by `deanius:promise`. It allows you to omit the final callback parameter you'd have passed to `Meteor.promise`, and instead provides a Promise for the result. Promises are effectively the same as callbacks, but instead of handling the response in one method like this:
+First, the version of `Meteor.promise` being used is an enhanced one provided by `okgrow:promise`. It allows you to omit the final callback parameter you'd have passed to `Meteor.promise`, and instead provides a Promise for the result. Promises are effectively the same as callbacks, but instead of handling the response in one method like this:
 
 ```js
 function (err, result){
@@ -132,4 +132,4 @@ ReactivePromise is completely safe to wrap regular (synchronous, non-promise ret
 
 Promises can be used anywhere callback-accepting code is, so `HTTP.call` and friends could all be modified to return a Promise if the final callback parameter is omitted. This would increase the ease with which we could combine Reactive functionality across different types of use cases.
 
-Thoughts? Questions? Open an issue in [`deanius:promise`](https://github.com/deanius/meteor-promise), and let's discuss. Or find me on social media. Thanks for your interest!
+Thoughts? Questions? Open an issue in [`okgrow:promise`](https://github.com/okgrow/meteor-promise), and let's discuss. Or find me on social media. Thanks for your interest!

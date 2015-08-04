@@ -1,8 +1,8 @@
 Package.describe({
-  name: 'deanius:promise',
-  version: '2.3.0',
+  name: 'okgrow:promise',
+  version: '1.0.0',
   summary: 'Get a Promise for a Meteor method call. Create async reactive functions using Promises.',
-  git: 'https://github.com/deanius/meteor-promise',
+  git: 'https://github.com/okgrow/meteor-promise',
   documentation: 'README.md'
 });
 
@@ -20,7 +20,7 @@ Npm.depends({
 
 Package.onTest(function(api) {
   api.use('tinytest');
-  api.use('deanius:promise');
+  api.use('okgrow:promise');
   api.use('grigio:babel');
   api.addFiles('tests/support.es6.js', ['client', 'server']);
   api.addFiles('tests/identity-tests.es6.js', ['client', 'server']);

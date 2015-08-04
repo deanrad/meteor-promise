@@ -1,5 +1,5 @@
 {
-  "name": "deanius-meteor-promise",
+  "name": "okgrow-meteor-promise",
   "version": "2.3.0",
   "description": "Get a Promise for a Meteor method call. Create async reactive functions using Promises.",
   "main": "promise.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/deanius/meteor-promise.git"
+    "url": "https://github.com/okgrow/meteor-promise.git"
   },
   "keywords": [
     "meteor",
@@ -18,7 +18,7 @@
   "author": "Dean Radcliffe",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/deanius/meteor-promise/issues"
+    "url": "https://github.com/okgrow/meteor-promise/issues"
   },
-  "homepage": "https://github.com/deanius/meteor-promise"
+  "homepage": "https://github.com/okgrow/meteor-promise"
 }
