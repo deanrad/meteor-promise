@@ -1,6 +1,6 @@
 {
   "name": "okgrow-meteor-promise",
-  "version": "2.3.0",
+  "version": "0.9.0",
   "description": "Get a Promise for a Meteor method call. Create async reactive functions using Promises.",
   "main": "promise.js",
   "scripts": {

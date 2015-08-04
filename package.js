@@ -1,6 +1,6 @@
 Package.describe({
   name: 'okgrow:promise',
-  version: '1.0.0',
+  version: '0.9.0',
   summary: 'Get a Promise for a Meteor method call. Create async reactive functions using Promises.',
   git: 'https://github.com/okgrow/meteor-promise',
   documentation: 'README.md'
