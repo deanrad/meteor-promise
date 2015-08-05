@@ -11,6 +11,9 @@ const delayedFn = (ms, returnVal=defaultReturnVal) =>
     new Promise(resolve =>
       setTimeout(resolve.bind(_, returnVal), ms))
 const rejectingFn = () => Promise.reject(defaultErrorVal)
+const equalEJSON = function equalEJSON (a, b) {
+  return this.equal(EJSON.stringify(a, {canonical:true}), EJSON.stringify(b, {canonical:true}))
+}
 
 Tinytest.addAsync('ReactivePromise - Basics - returns a wrapped function', (test, done) => {
   let wrappedFn = ReactivePromise(nullFn)
@@ -101,6 +104,58 @@ Tinytest.addAsync('ReactivePromise - Basics - can wrap a synchronous function wi
 })
 
 Tinytest.addAsync('ReactivePromise - Reactivity - responds to dep changes', (test, done) => {
-  //TODO finish these
-  done();
+  test.equalEJSON = equalEJSON
+  let returnVal = null,
+      timesRun = 0,
+      previousValues = [],
+      rvar = new ReactiveVar("a"),
+      wrappedFn = ReactivePromise(() => {
+        let curVal = rvar.get()
+        return new Promise(resolve =>
+          setTimeout(resolve.bind(_, curVal.toUpperCase()), 50))}, loadingMsg)
+
+  Tracker.autorun(() => {
+    returnVal = wrappedFn()
+    previousValues.push(returnVal)
+  })
+
+  //after the promise has resolved, our second value has come through
+  setTimeout(()=>{
+    test.equalEJSON(previousValues, ["loading", "A"])
+    //and we change again
+    rvar.set("b")
+  }, 60)
+
+  //before the 2nd resolution, we have a new loading message
+  setTimeout(()=>{ test.equalEJSON(previousValues, ["loading", "A", "loading"]) }, 100)
+
+  //then it resolves, giving us the 2nd value
+  setTimeout(()=>{
+    test.equalEJSON(previousValues, ["loading", "A", "loading", "B"])
+
+    //we change it again, but before its 50msec resolution, we change again
+    rvar.set("c")
+    setTimeout(()=>{
+      rvar.set("d")
+    }, 0)
+  }, 160)
+
+  // each change produced a loading message, then each resolution came through
+  setTimeout(()=>{
+    test.equalEJSON(previousValues, ["loading", "A", "loading", "B", "loading", "loading", "C", "D"])
+  }, 220)
+
+  setTimeout(done, 270)
+
+  /* XXX - Should we use `switch` semantics ala http://reactivex.io/documentation/operators/switch.html ?
+     and not emit a "C" or its loading message ? Should this be an option or default?
+     heres what we have now.. (marble diagram)
+       in: a----b----c-d------->
+      out: l---Al---Bl-l-C---D->
+
+    should we have?
+       in: a----b----c-d------->
+      out: l---Al---Bl-------D->
+
+  */
 })

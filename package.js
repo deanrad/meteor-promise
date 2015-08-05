@@ -21,6 +21,7 @@ Npm.depends({
 Package.onTest(function(api) {
   api.use('tinytest');
   api.use('okgrow:promise');
+  api.use('reactive-var');
   api.use('grigio:babel');
   api.addFiles('tests/support.es6.js', ['client', 'server']);
   api.addFiles('tests/identity-tests.es6.js', ['client', 'server']);
