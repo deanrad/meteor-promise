@@ -1,4 +1,4 @@
-# okgrow:promise [![Build Status](https://secure.travis-ci.org/okgrow/okgrow-meteor-promise.png?branch=master)](https://travis-ci.org/okgrow/okgrow-meteor-promise)
+# okgrow:promise [![Build Status](https://secure.travis-ci.org/okgrow/meteor-promise.png?branch=master)](https://travis-ci.org/okgrow/okgrow-meteor-promise)
 
 # Demo
 The demo-enabled README is at http://okgrow-promise.meteor.com/
