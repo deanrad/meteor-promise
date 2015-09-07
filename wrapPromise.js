@@ -61,3 +61,17 @@ Meteor.wrapPromise = function wrapPromise (nodeStyleFunction, filter) {
 	HTTP.postPromise = Meteor.wrapPromise(HTTP.post)
 	HTTP.putPromise = Meteor.wrapPromise(HTTP.put)
 	HTTP.deletePromise = Meteor.wrapPromise(HTTP.delete)
+
+	function addReadyPromise (handle) {
+		handle.readyPromise = new Promise(function (resolve) {
+			Tracker.autorun(function () {
+				if (handle.ready()) resolve(true);
+			})
+		});
+		return handle;
+	}
+
+	Meteor._subscribe = Meteor.subscribe
+	Meteor.subscribe = function () {
+		return addReadyPromise( Meteor._subscribe.apply(Meteor, arguments) );
+	}

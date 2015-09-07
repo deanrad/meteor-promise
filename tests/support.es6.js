@@ -34,3 +34,11 @@ Meteor.methods({
     return `${a} + ${b}`
   }
 });
+
+if (Meteor.isServer) {
+  Meteor.publish("testPublication", function () {
+    this.added("promiseTest", 1, {val: 1})
+    this.added("promiseTest", 2, {val: 2})
+    this.ready()
+  });
+}
