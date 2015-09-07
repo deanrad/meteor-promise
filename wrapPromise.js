@@ -56,3 +56,8 @@ Meteor.wrapPromise = function wrapPromise (nodeStyleFunction, filter) {
      * @returns {Promise}
      */
   Meteor.promise = Meteor.wrapPromise(Meteor.call)
+	HTTP.callPromise = Meteor.wrapPromise(HTTP.call)
+	HTTP.getPromise = Meteor.wrapPromise(HTTP.get)
+	HTTP.postPromise = Meteor.wrapPromise(HTTP.post)
+	HTTP.putPromise = Meteor.wrapPromise(HTTP.put)
+	HTTP.deletePromise = Meteor.wrapPromise(HTTP.delete)
