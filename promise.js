@@ -1,8 +1,3 @@
-// Provide a polyfill
-if (typeof Promise !== "function") {
-  Npm.require("es6-promise").polyfill();
-}
-
 /**
    * @memberOf Meteor
    * @summary Like, Meteor.wrapAsync does for Fibers, Meteor.wrapPromise returns
