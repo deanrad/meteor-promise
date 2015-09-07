@@ -10,8 +10,8 @@ Package.onUse(function(api) {
   api.versionsFrom('1.0.3.1');
   api.use('ddp', 'client');
   api.addFiles('promise.js', ['client', 'server']);
-  api.addFiles('reactivePromise.js', ['client', 'server']);
-  api.export("ReactivePromise", ['client', 'server']);
+  api.addFiles('reactivePromise.js', 'client');
+  api.export("ReactivePromise", 'client');
 });
 
 Npm.depends({
@@ -28,5 +28,5 @@ Package.onTest(function(api) {
   api.addFiles('tests/chaining-tests.es6.js', ['client', 'server']);
   api.addFiles('tests/error-tests.es6.js', ['client', 'server']);
   api.addFiles('tests/call-wo-callback.es6.js', ['client']);
-  api.addFiles('tests/reactive-promise.es6.js', ['client', 'server']);
+  api.addFiles('tests/reactive-promise.es6.js', ['client']);
 });

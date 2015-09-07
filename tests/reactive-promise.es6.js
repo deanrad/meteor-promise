@@ -105,57 +105,42 @@ Tinytest.addAsync('ReactivePromise - Basics - can wrap a synchronous function wi
 
 Tinytest.addAsync('ReactivePromise - Reactivity - responds to dep changes', (test, done) => {
   test.equalEJSON = equalEJSON
-  let returnVal = null,
-      timesRun = 0,
-      previousValues = [],
-      rvar = new ReactiveVar("a"),
-      wrappedFn = ReactivePromise(() => {
-        let curVal = rvar.get()
-        return new Promise(resolve =>
-          setTimeout(resolve.bind(_, curVal.toUpperCase()), 50))}, loadingMsg)
+  let returnVal = null
+  let timesRun = 0
+  let previousValues = []
+  let rvar = new ReactiveVar("a")
+  // a function with 50ms delay, since 40ms is minimum reliable setTimeout time
+  let delayedWrappedFn = ReactivePromise(() => {
+    let curVal = rvar.get()
+    return new Promise(resolve =>
+      setTimeout(resolve.bind(_, curVal.toUpperCase()), 50))}, loadingMsg)
 
   Tracker.autorun(() => {
-    returnVal = wrappedFn()
+    returnVal = delayedWrappedFn()
     previousValues.push(returnVal)
   })
 
-  //after the promise has resolved, our second value has come through
-  setTimeout(()=>{
-    test.equalEJSON(previousValues, ["loading", "A"])
-    //and we change again
-    rvar.set("b")
-  }, 60)
+  let timeline = {
+    0: ["loading"],
+    50: ["loading", "A"],
+    100: () => rvar.set("b"),
+    185: ["loading", "A", "loading", "B"],
+    200: () => rvar.set("c"),
+    201: () => rvar.set("d"),
+    285: ["loading", "A", "loading", "B", "loading", "D"],
+    385: ["loading", "A", "loading", "B", "loading", "D"],
+    400: done
+  }
 
-  //before the 2nd resolution, we have a new loading message
-  setTimeout(()=>{ test.equalEJSON(previousValues, ["loading", "A", "loading"]) }, 100)
+  _.each(timeline, function(stateOrChange, time) {
+    if(_.isFunction(stateOrChange))
+      setTimeout(stateOrChange, time)
+    else
+      setTimeout(() => {
+        Tracker.afterFlush(() => {
+          test.equalEJSON(previousValues, stateOrChange)
+        })
+      }, time)
+  })
 
-  //then it resolves, giving us the 2nd value
-  setTimeout(()=>{
-    test.equalEJSON(previousValues, ["loading", "A", "loading", "B"])
-
-    //we change it again, but before its 50msec resolution, we change again
-    rvar.set("c")
-    setTimeout(()=>{
-      rvar.set("d")
-    }, 0)
-  }, 160)
-
-  // each change produced a loading message, then each resolution came through
-  setTimeout(()=>{
-    test.equalEJSON(previousValues, ["loading", "A", "loading", "B", "loading", "loading", "C", "D"])
-  }, 220)
-
-  setTimeout(done, 270)
-
-  /* XXX - Should we use `switch` semantics ala http://reactivex.io/documentation/operators/switch.html ?
-     and not emit a "C" or its loading message ? Should this be an option or default?
-     heres what we have now.. (marble diagram)
-       in: a----b----c-d------->
-      out: l---Al---Bl-l-C---D->
-
-    should we have?
-       in: a----b----c-d------->
-      out: l---Al---Bl-------D->
-
-  */
 })
