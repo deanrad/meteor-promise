@@ -12,7 +12,7 @@ The demo-enabled README is at http://okgrow-promise.meteor.com/
 Well, not only can they enhance your Meteor development, they are now
 forever a part of JavaScript - in the standard called ES6 or ES 2015.
 
-Basically they allow you to pass around placholders for values
+Basically they allow you to pass around placeholders for values
 which you may have to wait for due to:
 
   * waiting on the network, like for a `Meteor.promise`

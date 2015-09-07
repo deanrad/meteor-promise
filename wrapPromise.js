@@ -64,8 +64,11 @@ Meteor.wrapPromise = function wrapPromise (nodeStyleFunction, filter) {
 
 	function addReadyPromise (handle) {
 		handle.readyPromise = new Promise(function (resolve) {
-			Tracker.autorun(function () {
-				if (handle.ready()) resolve(true);
+			Tracker.autorun(function (computation) {
+				if (handle.ready()) {
+					resolve(true);
+					computation.stop();
+				}
 			})
 		});
 		return handle;
