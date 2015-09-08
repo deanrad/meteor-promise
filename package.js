@@ -1,6 +1,6 @@
 Package.describe({
   name: 'okgrow:promise',
-  version: '0.9.3',
+  version: '0.9.5',
   summary: 'Utilities for Promise-based wrappers, method calls, helpers and HTTP in Meteor',
   git: 'https://github.com/okgrow/meteor-promise',
   documentation: 'README.md'
@@ -8,8 +8,9 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.0.3.1');
-  api.use('ddp', 'client', 'promise');
-  api.use('http');
+  api.use(['ddp', 'http', 'tracker']);
+  api.use('promise@0.4.1');
+  api.imply('promise');
   api.addFiles('wrapPromise.js', 'client');
   api.addFiles('reactivePromise.js', 'client');
   api.export("ReactivePromise", 'client');
