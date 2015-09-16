@@ -8,7 +8,7 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.0.3.1');
-  api.use(['ddp', 'http', 'tracker']);
+  api.use(['ddp', 'http', 'tracker', 'ecmascript']);
   api.use('promise@0.4.1');
   api.imply('promise');
   api.addFiles('wrapPromise.js', 'client');
@@ -18,10 +18,13 @@ Package.onUse(function(api) {
 
 Package.onTest(function(api) {
   api.use('tinytest');
-  api.use('okgrow:promise');
   api.use('reactive-var');
+  api.use('meteor-platform');
+  api.use('ejson');
+  api.use('okgrow:promise');
   api.use('grigio:babel');
   api.imply('http');
+  api.imply('ejson');
   api.addFiles('tests/support.es6.js', ['client', 'server']);
   api.addFiles('tests/identity-tests.es6.js', 'client');
   api.addFiles('tests/chaining-tests.es6.js', 'client');

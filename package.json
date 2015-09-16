@@ -4,7 +4,7 @@
   "description": "Get a Promise for a Meteor method call. Create async reactive functions using Promises.",
   "main": "promise.js",
   "scripts": {
-    "start": "meteor test-packages ./",
+    "start": "meteor --release METEOR@1.2-rc.15 test-packages ./",
     "test": "node start_test.js"
   },
   "repository": {
