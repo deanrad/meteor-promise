@@ -8,7 +8,7 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.0.3.1');
-  api.use(['ddp', 'http', 'tracker']);
+  api.use(['ddp', 'http', 'tracker', 'underscore']);
   //api.use('ecmascript');
   api.use('promise@0.4.1');
   api.imply('promise');
@@ -26,6 +26,7 @@ Package.onTest(function(api) {
   api.use('okgrow:promise');
   api.imply('http');
   api.imply('ejson');
+  api.imply('underscore');
   api.addFiles('tests/support.js', ['client', 'server']);
   api.addFiles('tests/identity-tests.js', 'client');
   api.addFiles('tests/chaining-tests.js', 'client');
