@@ -1,9 +1,10 @@
 var slice = [].slice;
 
-ReactivePromise = function (fn, loadingText, errorTextOrFn) {
-  var loadingText = loadingText || "",
+ReactivePromise = function (fn, loadingTextOrObj, errorTextOrFn) {
+  var loadingText = (loadingTextOrObj && loadingTextOrObj.pending) || loadingTextOrObj || "",
       displayError = function (e) {
-        return _.isFunction(errorTextOrFn) ? errorTextOrFn(e) : (errorTextOrFn || "");
+        var errorHandler = loadingTextOrObj.rejected || errorTextOrFn;
+        return _.isFunction(errorHandler) ? errorHandler(e) : (errorHandler || "");
       },
       refire = function refire (computation) {
         computation.isPromiseResolve = true;

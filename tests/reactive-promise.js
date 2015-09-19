@@ -21,9 +21,9 @@ Tinytest.addAsync('ReactivePromise - Basics - returns a wrapped function', (test
   done()
 })
 
-Tinytest.addAsync('ReactivePromise - Basics - wrapped function must be run in an autorun', (test, done) => {
+Tinytest.addAsync('ReactivePromise - Basics - wrapped function must be invoked in an autorun', (test, done) => {
   let caught = 0, err = null
-      wrappedFn = ReactivePromise(syncFn, loadingMsg)
+      wrappedFn = ReactivePromise(syncFn, {pending: loadingMsg})
   try {
     let retVal = wrappedFn();
   } catch (ex) {
@@ -36,10 +36,10 @@ Tinytest.addAsync('ReactivePromise - Basics - wrapped function must be run in an
 
 Tinytest.addAsync('ReactivePromise - Basics - returns loading text when promise is not resolved', (test, done) => {
   let returnVal = null,
-      wrappedFn = ReactivePromise(delayedFn(100), loadingMsg)
+      wrappedFn = ReactivePromise(delayedFn(100), {pending: loadingMsg})
 
   Tracker.autorun(() => {
-    returnVal = wrappedFn()
+    returnVal = wrappedFn() // <-- I'm happy now, autoruns are where you call me
   })
   test.equal(returnVal, loadingMsg)
   done()
@@ -47,7 +47,7 @@ Tinytest.addAsync('ReactivePromise - Basics - returns loading text when promise 
 
 Tinytest.addAsync('ReactivePromise - Basics - returns value once resolved', (test, done) => {
   let returnVal = null,
-      wrappedFn = ReactivePromise(delayedFn(100), loadingMsg, errMsg)
+      wrappedFn = ReactivePromise(delayedFn(100), {pending: loadingMsg, rejected: errMsg})
 
   Tracker.autorun(() => {
     returnVal = wrappedFn()
@@ -63,7 +63,7 @@ Tinytest.addAsync('ReactivePromise - Basics - returns value once resolved', (tes
 
 Tinytest.addAsync('ReactivePromise - Basics - returns errMsg if rejected', (test, done) => {
   let returnVal = null,
-      wrappedFn = ReactivePromise(rejectingFn, loadingMsg, errMsg)
+      wrappedFn = ReactivePromise(rejectingFn, {pending: loadingMsg, rejected: errMsg})
   Tracker.autorun(() => {
     returnVal = wrappedFn()
   })
@@ -76,7 +76,7 @@ Tinytest.addAsync('ReactivePromise - Basics - returns errMsg if rejected', (test
 
 Tinytest.addAsync('ReactivePromise - Basics - invokes errFn upon rejection', (test, done) => {
   let returnVal = null,
-      wrappedFn = ReactivePromise(rejectingFn, loadingMsg, (e)=>`the error is ${e}`)
+      wrappedFn = ReactivePromise(rejectingFn, {pending: loadingMsg, rejected: (e)=>`the error is ${e}`})
   Tracker.autorun(() => {
     returnVal = wrappedFn()
   })
@@ -125,11 +125,13 @@ Tinytest.addAsync('ReactivePromise - Reactivity - responds to dep changes', (tes
     50: ["loading", "A"],
     100: () => rvar.set("b"),
     185: ["loading", "A", "loading", "B"],
-    200: () => rvar.set("c"),
-    201: () => rvar.set("d"),
+    200: () => {rvar.set("c"); rvar.set("d")},
     285: ["loading", "A", "loading", "B", "loading", "D"],
     385: ["loading", "A", "loading", "B", "loading", "D"],
-    400: done
+    420: () => rvar.set("e"),
+    440: () => rvar.set("f"),
+    525: ["loading", "A", "loading", "B", "loading", "D", "loading", "loading", "E", "F"],
+    570: done
   }
 
   _.each(timeline, function(stateOrChange, time) {
