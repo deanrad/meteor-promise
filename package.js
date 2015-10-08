@@ -7,10 +7,10 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.2.0');
+  api.versionsFrom('1.2.0.2');
   api.use(['ddp', 'http', 'tracker', 'underscore']);
   //api.use('ecmascript');
-  api.use('promise@0.4.1');
+  api.use('promise');
   api.imply('promise');
   api.imply('ecmascript');
   api.addFiles('wrapPromise.js', 'client');
