@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/okgrow/meteor-promise/issues"
   },
-  "homepage": "https://github.com/okgrow/meteor-promise"
+  "homepage": "https://github.com/okgrow/meteor-promise",
+  "dependencies": {
+    "spacejam": "^1.2.2"
+  }
 }

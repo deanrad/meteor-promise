@@ -1,6 +1,14 @@
+# This is how you tell travis to run the build on the new container (docker) based infrastructure
+sudo: false
+
 language: node_js
-sudo: required
 node_js:
-  - "0.10"
+  - "0.10.36"
+
+# Since sudo isn't possible anymore (for now), meteor can't add a link to itself to /usr/local/bin, so you'll have to add the meteor installation folder to the PATH yourself.
 before_install:
-  - "curl -L http://git.io/ejPSng | /bin/sh"
+  - "curl https://install.meteor.com | /bin/sh"
+  - export PATH="$HOME/.meteor:$PATH"
+  - "npm install -g spacejam"
+
+script: "spacejam test-packages ./"
