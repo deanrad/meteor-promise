@@ -1,11 +1,11 @@
-# okgrow:promise [![Build Status](https://secure.travis-ci.org/okgrow/meteor-promise.png?branch=master)](https://travis-ci.org/okgrow/meteor-promise)
+# deanius:promise [![Build Status](https://secure.travis-ci.org/deanius/meteor-promise.png?branch=master)](https://travis-ci.org/deanius/meteor-promise)
 
 # Demo
-The demo-enabled README is at http://okgrow-promise.meteor.com/
+The demo-enabled README is at http://deanius-promise.meteor.com/
 
 # API
 
-The *okgrow:promise* package gives you the following functionality:
+The *deanius:promise* package gives you the following functionality:
 
   - `Meteor.promise` - The same as `Meteor.call`, but you omit the callback parameter, and it returns a `Promise` for the result
   - `Meteor.wrapPromise` - Takes *any* callback-style function, and returns a Promise-returning function.
@@ -15,4 +15,4 @@ The *okgrow:promise* package gives you the following functionality:
   - `ReactivePromise` - A function to wrap Promise-returning functions with, to create reactive functions - such as helpers - which update when their promised value becomes available.
 
   
-Thoughts? Questions? Open an issue in [`okgrow:promise`](https://github.com/okgrow/meteor-promise), and let's discuss. Or find me on social media. Thanks for your interest!
+Thoughts? Questions? Open an issue in [`deanius:promise`](https://github.com/deanius/meteor-promise), and let's discuss. Or find me on social media. Thanks for your interest!
