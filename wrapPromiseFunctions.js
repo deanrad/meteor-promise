@@ -12,15 +12,17 @@
 	HTTP.putPromise = Promise.denodeify(HTTP.put)
 	HTTP.deletePromise = Promise.denodeify(HTTP.delete)
 
-	function addReadyPromise (handle) {
-		handle.readyPromise = new Promise(function (resolve) {
-			Tracker.autorun(function (computation) {
-				if (handle.ready()) {
-					resolve(true);
-					computation.stop();
-				}
-			})
-		});
+	addReadyPromise = (handle) => {
+		handle.readyPromise = () =>
+      new Promise((resolve) => {
+  			Tracker.autorun((computation) => {
+  				if (handle.ready()) {
+            //resolving invokes 'then' steps async, just like computation invalidations
+  					resolve(true)
+  					computation.stop()
+  				}
+  			})
+  		})
 	}
 
 	Meteor._subscribe = Meteor.subscribe
