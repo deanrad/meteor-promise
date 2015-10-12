@@ -1,33 +1,29 @@
 var slice = [].slice;
 
-ReactivePromise = function (fn, loadingTextOrObj, errorTextOrFn) {
+ReactivePromise = (fn, loadingTextOrObj, errorTextOrFn) => {
   var loadingText = (loadingTextOrObj && loadingTextOrObj.pending) || loadingTextOrObj || "",
-      displayError = function (e) {
+      displayError = (e) => {
         var errorHandler = loadingTextOrObj.rejected || errorTextOrFn;
         return _.isFunction(errorHandler) ? errorHandler(e) : (errorHandler || "");
       },
-      refire = function refire (computation) {
+      refire = (computation) => {
         computation.isPromiseResolve = true;
         computation.depsNotDeleted = computation._onInvalidateCallbacks;
         computation._onInvalidateCallbacks = [];
         computation.invalidate();
       },
-      cleanup = function cleanup (computation) {
+      cleanup = (computation) => {
         computation._onInvalidateCallbacks = computation.depsNotDeleted;
         delete computation.depsNotDeleted;
         delete computation.isPromiseResolve;
       },
       returnValues = {};
-  return function(/* ...args, spacebars */) {
-    var args, argHash, helperComputation, promise, reactiveValue, result;
-    var i;
-    args = 2 <= arguments.length ? slice.call(arguments, 0, i = arguments.length - 1) : (i = 0, []);
-    result = null;
-    argHash = EJSON.stringify(args, {
-      canonical: true
-    });
-
-    helperComputation = Tracker.currentComputation;
+  return ((...args) => {
+    let promiseForResult
+    let result = null
+    args = args.slice(0,-1)  /*remove spacebars, the final arg*/
+    let argHash = EJSON.stringify(args, {canonical: true})
+    let helperComputation = Tracker.currentComputation
     if (helperComputation.isPromiseResolve) {
       cleanup(helperComputation);
       return returnValues[argHash];
@@ -46,8 +42,8 @@ ReactivePromise = function (fn, loadingTextOrObj, errorTextOrFn) {
     });
 
     if (returnValues[argHash] instanceof Promise) {
-      promise = result;
-      promise.then(function (v) {
+      promiseForResult = result;
+      promiseForResult.then(function (v) {
         returnValues[argHash] = v;
         refire(helperComputation);
         return v;
@@ -59,6 +55,6 @@ ReactivePromise = function (fn, loadingTextOrObj, errorTextOrFn) {
       returnValues[argHash] = loadingText;
     }
     return returnValues[argHash];
-  };
+  })
 
 };

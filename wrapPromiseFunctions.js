@@ -21,10 +21,11 @@
 				}
 			})
 		});
-		return handle;
 	}
 
 	Meteor._subscribe = Meteor.subscribe
-	Meteor.subscribe = function () {
-		return addReadyPromise( Meteor._subscribe.apply(Meteor, arguments) );
+	Meteor.subscribe = function (...args) {
+    let handle = Meteor._subscribe.apply(Meteor, args)
+		addReadyPromise(handle)
+    return handle
 	}
