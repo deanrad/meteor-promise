@@ -11,7 +11,7 @@ Package.onUse(function(api) {
   api.use(['ddp', 'http', 'tracker', 'underscore', 'promise', 'ecmascript']);
 
   api.imply('promise');
-  api.addFiles('wrapPromise.js', 'client');
+  api.addFiles('wrapPromiseFunctions.js', 'client');
   api.addFiles('reactivePromise.js', 'client');
   api.export("ReactivePromise", 'client');
 });
