@@ -1,6 +1,6 @@
 Package.describe({
   name: 'deanius:promise',
-  version: '0.10.1',
+  version: '3.0.0',
   summary: 'Utilities for Promise-based wrappers, method calls, helpers and HTTP in Meteor',
   git: 'https://github.com/deanius/meteor-promise',
   documentation: 'README.md'
@@ -8,11 +8,9 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.2.0.2');
-  api.use(['ddp', 'http', 'tracker', 'underscore']);
-  //api.use('ecmascript');
-  api.use('promise');
+  api.use(['ddp', 'http', 'tracker', 'underscore', 'promise', 'ecmascript']);
+
   api.imply('promise');
-  api.imply('ecmascript');
   api.addFiles('wrapPromise.js', 'client');
   api.addFiles('reactivePromise.js', 'client');
   api.export("ReactivePromise", 'client');
