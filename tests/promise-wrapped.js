@@ -13,3 +13,7 @@ Tinytest.addAsync('HTTP - getPromise', (test, done) => {
 Tinytest.add('HTTP - postPromise', (test) => {})
 Tinytest.add('HTTP - putPromise', (test) => {})
 Tinytest.add('HTTP - deletePromise', (test) => {})
+
+Tinytest.add('Promise - denodeify', (test) => {
+  test.equal(typeof Promise.denodeify, "function")
+});

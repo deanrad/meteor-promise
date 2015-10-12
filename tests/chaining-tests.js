@@ -1,8 +1,8 @@
 // This test not reliably passing on the server
 
 if (Meteor.isClient) {
-  Tinytest.addAsync('Meteor.promise - chaining - 3', (test, done) => {
-    var p = Meteor.promise("identity", 1);
+  Tinytest.addAsync('Meteor.callPromise - chaining - 3', (test, done) => {
+    var p = Meteor.callPromise("identity", 1);
 
     var testFunc = wrapOnServer((actual) => {
       test.equal(actual, 1+1+1);
@@ -14,9 +14,9 @@ if (Meteor.isClient) {
      .then(testFunc);
   });
 
-  Tinytest.addAsync('Meteor.promise - chaining - README Examples - success', (test, done) => {
-    Meteor.promise("createCustomer", "foo@bar.com", "VISA")
-      .then(customer => Meteor.promise("createCustomerSubscription", customer.id, "foo"))
+  Tinytest.addAsync('Meteor.callPromise - chaining - README Examples - success', (test, done) => {
+    Meteor.callPromise("createCustomer", "foo@bar.com", "VISA")
+      .then(customer => Meteor.callPromise("createCustomerSubscription", customer.id, "foo"))
       .then(plan => console.log("Plan", plan))
       .then(() => {
         test.equal(true, true);
@@ -28,9 +28,9 @@ if (Meteor.isClient) {
         done();
       });
   });
-  Tinytest.addAsync('Meteor.promise - chaining - README Examples - fail', (test, done) => {
-    Meteor.promise("createCustomer") // will throw due to no args
-      .then(customer => Meteor.promise("createCustomerSubscription", customer.id, "foo"))
+  Tinytest.addAsync('Meteor.callPromise - chaining - README Examples - fail', (test, done) => {
+    Meteor.callPromise("createCustomer") // will throw due to no args
+      .then(customer => Meteor.callPromise("createCustomerSubscription", customer.id, "foo"))
       .then(plan => console.log("Plan", plan))
       .then(() => {
         test.equal(true, false);

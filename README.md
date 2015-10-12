@@ -7,8 +7,8 @@ The demo-enabled README is at http://deanius-promise.meteor.com/
 
 The *deanius:promise* package gives you the following functionality:
 
-  - `Meteor.promise` - The same as `Meteor.call`, but you omit the callback parameter, and it returns a `Promise` for the result
-  - `Meteor.wrapPromise` - Takes *any* callback-style function, and returns a Promise-returning function.
+  - `Meteor.callPromise` - The same as `Meteor.call`, but you omit the callback parameter, and it returns a `Promise` for the result
+  - `Meteor.Meteor.callPromise` - Takes *any* callback-style function, and returns a Promise-returning function.
     This is like `Meteor.wrapAsync`, but useful on the client.
   - `HTTP.getPromise` - All methods on the HTTP object will have Promise-returning versions, just append `Promise` onto the method name.
   - `Meteor.subscribe` - The object returned by `Meteor.subscribe` will have a `readyPromise` property which resolves when `ready()` returns `true`.
