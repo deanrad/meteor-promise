@@ -1,4 +1,7 @@
-# deanius:promise [![Build Status](https://secure.travis-ci.org/deanius/meteor-promise.png?branch=master)](https://travis-ci.org/deanius/meteor-promise)
+# deanius:promise ![Build Status](https://secure.travis-ci.org/deanius/meteor-promise.png?branch=master) [![twitter link](https://img.shields.io/badge/twitter-@deaniusdev-55acee.svg?style=flat-square)](https://twitter.com/@deaniusdev)
+
+
+(https://travis-ci.org/deanius/meteor-promise)
 
 # Demo
 The demo-enabled README is at http://deanius-promise.meteor.com/
