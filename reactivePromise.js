@@ -1,6 +1,10 @@
-var slice = [].slice;
+import MeteorConstructor from 'deanius-meteor-client'
+import _ from 'underscore'
+let Meteor = MeteorConstructor(_, _)
+let EJSON = Meteor.EJSON
+let Tracker = Meteor.Tracker
 
-ReactivePromise = (fn, loadingTextOrObj, errorTextOrFn) => {
+export default (fn, loadingTextOrObj, errorTextOrFn) => {
   var loadingText = (loadingTextOrObj && loadingTextOrObj.pending) || loadingTextOrObj || "",
       displayError = (e) => {
         var errorHandler = loadingTextOrObj.rejected || errorTextOrFn;
@@ -24,6 +28,7 @@ ReactivePromise = (fn, loadingTextOrObj, errorTextOrFn) => {
     args = args.slice(0,-1)  /*remove spacebars, the final arg*/
     let argHash = EJSON.stringify(args, {canonical: true})
     let helperComputation = Tracker.currentComputation
+    if (!helperComputation) throw new Error("The function returned from ReactivePromise must be called within a Tracker.autorun")
     if (helperComputation.isPromiseResolve) {
       cleanup(helperComputation);
       return returnValues[argHash];
