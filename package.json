@@ -23,5 +23,13 @@
   "homepage": "https://github.com/deanius/meteor-promise",
   "dependencies": {
     "spacejam": "^1.2.2"
+  },
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "chai": "^3.3.0",
+    "meteor-tracker": "^1.2.7",
+    "mocha": "^2.3.3",
+    "testdouble": "^0.2.0",
+    "underscore": "^1.8.3"
   }
 }
