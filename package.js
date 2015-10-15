@@ -16,10 +16,6 @@ Package.onUse(function(api) {
   api.export("ReactivePromise", 'client');
 });
 
-Npm.depends({
-  'testdouble': '0.2.0'
-});
-
 Package.onTest(function(api) {
   api.use('tinytest');
   api.use('reactive-var');
