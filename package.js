@@ -1,6 +1,6 @@
 Package.describe({
   name: 'deanius:promise',
-  version: '3.1.1',
+  version: '3.1.2',
   summary: 'Utilities for Promise-based wrappers, method calls, helpers and HTTP in Meteor',
   git: 'https://github.com/deanius/meteor-promise',
   documentation: 'README.md'
