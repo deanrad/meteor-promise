@@ -1,4 +1,5 @@
-# deanius:promise ![Build Status](https://secure.travis-ci.org/deanius/meteor-promise.png?branch=master) [![twitter link](https://img.shields.io/badge/twitter-@deaniusdev-55acee.svg?style=flat-square)](https://twitter.com/@deaniusdev)
+# deanius:promise
+![Build Status](https://img.shields.io/travis/deanius/meteor-promise.svg) ![Build Status](https://img.shields.io/badge/meteor-v3.1.1-green.svg) [![twitter link](https://img.shields.io/badge/twitter-@deaniusdev-55acee.svg?style=flat-square)](https://twitter.com/@deaniusdev) 
 
 
 (https://travis-ci.org/deanius/meteor-promise)
