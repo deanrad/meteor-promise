@@ -1,5 +1,6 @@
 # deanius:promise
 [![Build Status](https://img.shields.io/travis/deanius/meteor-promise.svg)](https://travis-ci.org/deanius/meteor-promise) [![Version Info](https://img.shields.io/badge/meteor-v3.1.2-green.svg)](https://atmospherejs.com/deanius/promise) [![twitter link](https://img.shields.io/badge/twitter-@deaniusdev-55acee.svg)](https://twitter.com/@deaniusdev)
+[![Codacy Badge](https://api.codacy.com/project/badge/d432270b7b0b4be5b818aae1be5101d7)](https://www.codacy.com/app/deanmisc/meteor-promise)
 
 # Install
 ```

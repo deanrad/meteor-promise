@@ -16,7 +16,7 @@ ddp@1.2.2
 ddp-client@1.2.1
 ddp-common@1.2.1
 ddp-server@1.2.1
-deanius:promise@3.1.1
+deanius:promise@3.1.2
 deps@1.0.9
 diff-sequence@1.0.1
 ecmascript@0.1.5
@@ -31,7 +31,7 @@ id-map@1.0.4
 jquery@1.11.4
 launch-screen@1.0.4
 livedata@1.0.15
-local-test:deanius:promise@3.1.1
+local-test:deanius:promise@3.1.2
 logging@1.0.8
 meteor@1.1.9
 meteor-platform@1.2.3
