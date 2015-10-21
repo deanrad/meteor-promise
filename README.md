@@ -1,8 +1,6 @@
 # deanius:promise
-![Build Status](https://img.shields.io/travis/deanius/meteor-promise.svg) ![Build Status](https://img.shields.io/badge/meteor-v3.1.1-green.svg) [![twitter link](https://img.shields.io/badge/twitter-@deaniusdev-55acee.svg?style=flat-square)](https://twitter.com/@deaniusdev) 
+[![Build Status](https://img.shields.io/travis/deanius/meteor-promise.svg)](https://travis-ci.org/deanius/meteor-promise) [![Version Info](https://img.shields.io/badge/meteor-v3.1.1-green.svg)](https://atmospherejs.com/deanius/promise) [![twitter link](https://img.shields.io/badge/twitter-@deaniusdev-55acee.svg?style=flat-square)](https://twitter.com/@deaniusdev) 
 
-
-(https://travis-ci.org/deanius/meteor-promise)
 
 # Demo
 The demo-enabled README is at http://deanius-promise.meteor.com/
