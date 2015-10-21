@@ -45,12 +45,13 @@ denodeify = function denodeify (nodeStyleFunction, filter) {
 
   /**
      * @memberOf Meteor
-     * @summary Gets a ES6-compatible Promise for the result of a Meteor.promise
+     * @summary Gets a ES2015-compatible Promise for the result of a Meteor.promise
      * @param {String} name Name of method to invoke
      * @param {EJSONable} [arg1,arg2...] Optional method arguments
      * @returns {Promise}
      */
   Meteor.callPromise = denodeify(Meteor.call)
+	Meteor.wrapPromise = denodeify
 	HTTP.callPromise = denodeify(HTTP.call)
 	HTTP.getPromise = denodeify(HTTP.get)
 	HTTP.postPromise = denodeify(HTTP.post)
