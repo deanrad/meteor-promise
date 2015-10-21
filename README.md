@@ -1,5 +1,5 @@
 # deanius:promise
-[![Build Status](https://img.shields.io/travis/deanius/meteor-promise.svg)](https://travis-ci.org/deanius/meteor-promise) [![Version Info](https://img.shields.io/badge/meteor-v3.1.1-green.svg)](https://atmospherejs.com/deanius/promise) [![twitter link](https://img.shields.io/badge/twitter-@deaniusdev-55acee.svg)](https://twitter.com/@deaniusdev)
+[![Build Status](https://img.shields.io/travis/deanius/meteor-promise.svg)](https://travis-ci.org/deanius/meteor-promise) [![Version Info](https://img.shields.io/badge/meteor-v3.1.2-green.svg)](https://atmospherejs.com/deanius/promise) [![twitter link](https://img.shields.io/badge/twitter-@deaniusdev-55acee.svg)](https://twitter.com/@deaniusdev)
 
 # Install
 ```
