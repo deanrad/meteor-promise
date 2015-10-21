@@ -76,13 +76,13 @@ Tinytest.addAsync('ReactivePromise - Basics - returns errMsg if rejected', (test
 
 Tinytest.addAsync('ReactivePromise - Basics - invokes errFn upon rejection', (test, done) => {
   let returnVal = null,
-      wrappedFn = ReactivePromise(rejectingFn, {pending: loadingMsg, rejected: (e)=>`the error is ${e}`})
+      wrappedFn = ReactivePromise(rejectingFn, {pending: loadingMsg, rejected: errFn})
   Tracker.autorun(() => {
     returnVal = wrappedFn()
   })
   test.equal(returnVal, loadingMsg)
   setTimeout(()=>{
-    test.equal(returnVal, defaultErrorDisplay)
+    test.equal(returnVal, errFn('Error: -1'))
     done()
   }, 100)
 })

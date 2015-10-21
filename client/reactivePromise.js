@@ -1,5 +1,3 @@
-var slice = [].slice;
-
 ReactivePromise = (fn, loadingTextOrObj, errorTextOrFn) => {
   var loadingText = (loadingTextOrObj && loadingTextOrObj.pending) || loadingTextOrObj || "",
       displayError = (e) => {

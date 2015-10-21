@@ -13,7 +13,7 @@ Tinytest.addAsync('Meteor.callPromise - MeteorError - then', (test, done) => {
 
 Tinytest.addAsync('Meteor.callPromise - MeteorError - catch', (test, done) => {
   var p = Meteor.callPromise("MeteorError");
-  p.then((val) => {
+  p.then(() => {
     //this branch wont be run
     test.equal(1,2);
     done();
