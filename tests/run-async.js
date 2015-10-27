@@ -22,21 +22,6 @@ var realGenerator = function* (){
    return msg;
 }
 
-Tinytest.add('Meteor.runAsync - must be passed a generator', (test) => {
-  var errs=0;
-  try{
-    Meteor.runAsync(nonGenerator)
-  } catch (ex) {
-    errs+=1
-  }
-  try{
-    Meteor.runAsync(undefined)
-  } catch (ex) {
-    errs+=1
-  }
-  test.equal(errs, 2)
-});
-
 Tinytest.addAsync('Meteor.runAsync - returns a promise for the result', (test, done) => {
   Meteor.runAsync(simpleGenerator)
     .then(result => test.equal(result, 'yep'))
