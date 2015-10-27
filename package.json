@@ -1,6 +1,6 @@
 {
   "name": "meteor-promise",
-  "version": "0.9.0",
+  "version": "3.1.3",
   "description": "Get a Promise for a Meteor method call. Create async reactive functions using Promises.",
   "main": "promise.js",
   "scripts": {
