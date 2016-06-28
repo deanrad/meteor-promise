@@ -6,9 +6,6 @@
 meteor add deanius:promise
 ```
 
-# Documentation
-The demo-enabled README is at http://deanius-promise.meteor.com/
-
 # API
 
 The *deanius:promise* package gives you the following functionality:
