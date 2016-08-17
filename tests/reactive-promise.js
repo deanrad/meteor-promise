@@ -148,8 +148,18 @@ Tinytest.addAsync('ReactivePromise - Reactivity - responds to dep changes', (tes
 
 })
 
-Tinytest.addAsync('ReactifyPromise - returns a ReactiveVar from a promise', (test, done) => {
+Tinytest.addAsync('ReactifyPromise - resolve - returns a ReactiveVar from a promise', (test, done) => {
   let p = Promise.resolve(2.1)
+  let rp = ReactifyPromise(p, 0)
+  test.equal(rp.get(), 0)
+  setTimeout(() => {
+    test.equal(rp.get(), 2.1)
+    done()
+  })
+})
+
+Tinytest.addAsync('ReactifyPromise - reject - returns a ReactiveVar populated with the error', (test, done) => {
+  let p = Promise.reject(2.1)
   let rp = ReactifyPromise(p, 0)
   test.equal(rp.get(), 0)
   setTimeout(() => {
