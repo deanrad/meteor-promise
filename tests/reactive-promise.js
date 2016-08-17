@@ -167,3 +167,24 @@ Tinytest.addAsync('ReactifyPromise - reject - returns a ReactiveVar populated wi
     done()
   })
 })
+
+Tinytest.addAsync('PromisifyReactiveVar - returns a promise which resolves with the next value of this ReactiveVar', (test, done) => {
+  let rvar = new ReactiveVar(-1)
+  let p = PromisifyReactiveVar(rvar)
+
+  // If you set twice before a Tracker.flush, only the last value will be the resolved value
+  rvar.set(-2.1)
+  rvar.set(-2.2) 
+  test.equal(rvar.get(), -2.2)
+
+  // After the flush, setting should be a noop - our promise resolves only once
+  Tracker.afterFlush(() => {
+    rvar.set(-2.3) 
+  })
+
+  // We have the value present
+  p.then(nextVal => {
+    test.equal(nextVal, -2.2)
+  }).then(done, done)
+
+})

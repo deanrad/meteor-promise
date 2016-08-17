@@ -20,7 +20,6 @@ Package.onUse(function(api) {
   api.use('http');
   api.use('tracker');
   api.use('underscore');
-  api.use('browser-policy')
 
   api.use('cosmos:browserify@0.8.1');
   api.addFiles('client/denodeifyFunctions.js', 'client');
@@ -29,6 +28,7 @@ Package.onUse(function(api) {
   api.addFiles('client/runAsync.browserify.js', 'client');
   api.export('ReactivePromise', 'client');
   api.export('ReactifyPromise', 'client');
+  api.export('PromisifyReactiveVar', 'client');
 });
 
 Package.onTest(function(api) {
@@ -40,6 +40,8 @@ Package.onTest(function(api) {
   api.use('ejson');
   api.use('ecmascript');
   api.use('deanius:promise');
+  api.use('browser-policy');
+  api.imply('browser-policy');
   api.imply('http');
   api.imply('ejson');
   api.imply('underscore');
