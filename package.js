@@ -12,20 +12,30 @@ Npm.depends({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.2.0.2');
-  api.use(['ddp', 'http', 'tracker', 'underscore', 'promise', 'ecmascript']);
-
+  api.use('ecmascript');
+  api.use('promise');
   api.imply('promise');
+  api.use('reactive-var');
+  api.use('ddp');
+  api.use('http');
+  api.use('tracker');
+  api.use('underscore');
+  api.use('browser-policy')
 
   api.use('cosmos:browserify@0.8.1');
   api.addFiles('client/denodeifyFunctions.js', 'client');
   api.addFiles('client/reactivePromise.js', 'client');
+  api.addFiles('client/reactifyPromise.js', 'client');
   api.addFiles('client/runAsync.browserify.js', 'client');
-  api.export("ReactivePromise", 'client');
+  api.export('ReactivePromise', 'client');
+  api.export('ReactifyPromise', 'client');
 });
 
 Package.onTest(function(api) {
   api.use('tinytest');
   api.use('reactive-var');
+  api.use('tracker');
+  api.use('mongo');
   api.use('meteor-platform');
   api.use('ejson');
   api.use('ecmascript');

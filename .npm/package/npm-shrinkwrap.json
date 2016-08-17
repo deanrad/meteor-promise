@@ -1,7 +1,9 @@
 {
   "dependencies": {
     "co": {
-      "version": "4.6.0"
+      "version": "4.6.0",
+      "resolved": "https://registry.npmjs.org/co/-/co-4.6.0.tgz",
+      "from": "co@4.6.0"
     }
   }
 }
