@@ -188,3 +188,26 @@ Tinytest.addAsync('PromisifyReactiveVar - returns a promise which resolves with 
   }).then(done, done)
 
 })
+
+Tinytest.addAsync('PromisifyReactiveVar - does not resolve until set to a new distinct value', (test, done) => {
+  let rvar = new ReactiveVar(7)
+  let p = PromisifyReactiveVar(rvar)
+
+  rvar.set(7)
+  
+  // After the flush, setting should be a noop - our promise resolves only once
+  Tracker.afterFlush(() => {
+    // assert that the promise is not yet resolved
+    test.equal(p.myIsResolved, undefined)
+    p.myIsResolved = false
+    rvar.set(8) 
+  })
+
+  // but when the promise resolves, we set a flag on it, and it should have resolved with the new value
+  p.then(nextVal => {
+    p.myIsResolved = true
+    test.equal(nextVal, 8)
+  }).then(done, done)
+
+
+})
