@@ -1,6 +1,6 @@
 Package.describe({
   name: 'deanius:promise',
-  version: '3.1.3',
+  version: '3.1.4',
   summary: 'Utilities for Promise-based wrappers, method calls, helpers and HTTP in Meteor',
   git: 'https://github.com/deanius/meteor-promise',
   documentation: 'README.md'
@@ -11,7 +11,7 @@ Npm.depends({
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.2.0.2');
+  api.versionsFrom('1.6.1');
   api.use('ecmascript');
   api.use('promise');
   api.imply('promise');
@@ -21,7 +21,6 @@ Package.onUse(function(api) {
   api.use('tracker');
   api.use('underscore');
 
-  api.use('cosmos:browserify@0.8.1');
   api.addFiles('client/denodeifyFunctions.js', 'client');
   api.addFiles('client/reactivePromise.js', 'client');
   api.addFiles('client/reactifyPromise.js', 'client');
