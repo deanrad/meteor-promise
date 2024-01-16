@@ -30,12 +30,12 @@ Package.onUse(function(api) {
   api.export('PromisifyReactiveVar', 'client');
 });
 
+// meteor test-packages deanius:promise --driver-package test-in-console
 Package.onTest(function(api) {
   api.use('tinytest');
   api.use('reactive-var');
   api.use('tracker');
   api.use('mongo');
-  api.use('meteor-platform');
   api.use('ejson');
   api.use('ecmascript');
   api.use('deanius:promise');
